@@ -1,7 +1,9 @@
+import mongoose from "mongoose";
+
 const publisherSchema = new mongoose.Schema({
-  PublisherID: { type: String, required: true, unique: true },
-  PublisherName: { type: String, required: true },
-  Address: { type: String, required: true },
+  publisherID: { type: String, required: true, unique: true },
+  publisherName: { type: String, required: true },
+  address: { type: String, required: true },
 });
 
-const Publisher = mongoose.model("Publisher", publisherSchema);
+export default mongoose.model("Publisher", publisherSchema);

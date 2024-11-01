@@ -1,21 +1,82 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
-// User Schema
-const userSchema = new mongoose.Schema({
-  username: { type: String, required: true, unique: true },
-  email: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
-  role: { type: String, default: "user" }, // Vai trò của người dùng, có thể là 'user', 'admin', v.v.
-  createdAt: { type: Date, default: Date.now }, // Ngày tạo tài khoản
-  updatedAt: { type: Date, default: Date.now }, // Ngày cập nhật cuối cùng
-});
+const UserSchema = new mongoose.Schema(
+  {
+    userType: {
+      type: String,
+      require: true,
+    },
+    userFullName: {
+      type: String,
+      require: true,
+      unique: true,
+    },
+    admissionId: {
+      type: String,
+      min: 3,
+      max: 15,
+    },
+    employeeId: {
+      type: String,
+      min: 3,
+      max: 15,
+    },
+    age: {
+      type: Number,
+    },
+    gender: {
+      type: String,
+    },
+    dob: {
+      type: String,
+    },
+    address: {
+      type: String,
+      default: "",
+    },
+    mobileNumber: {
+      type: Number,
+      require: true,
+    },
+    photo: {
+      type: String,
+      default: "",
+    },
+    email: {
+      type: String,
+      require: true,
+      max: 50,
+      unique: true,
+    },
+    password: {
+      type: String,
+      require: true,
+      min: 6,
+    },
+    points: {
+      type: Number,
+      default: 0,
+    },
+    activeTransactions: [
+      {
+        type: mongoose.Types.ObjectId,
+        ref: "BookTransaction",
+      },
+    ],
+    prevTransactions: [
+      {
+        type: mongoose.Types.ObjectId,
+        ref: "BookTransaction",
+      },
+    ],
+    isAdmin: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
 
-// Middleware để cập nhật trường updatedAt trước khi lưu
-userSchema.pre("save", function (next) {
-  this.updatedAt = Date.now();
-  next();
-});
-
-const User = mongoose.model("User", userSchema);
-
-module.exports = User;
+export default mongoose.model("User", UserSchema);

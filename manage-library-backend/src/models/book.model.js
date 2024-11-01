@@ -1,13 +1,34 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const bookSchema = new mongoose.Schema({
-    BookID: { type: String, required: true, unique: true },
-    Title: { type: String, required: true },
-    Price: { type: Number, required: true },
-    Quantity: { type: Number, required: true },
-    PublicationYear: { type: Number, required: true },
-    PublisherID: { type: String, required: true },
-    Author: { type: String, required: true }
+  title: { type: String, required: true },
+  bookID: { type: String, required: true, unique: true },
+  price: { type: Number, required: true },
+  quantity: { type: Number, required: true },
+  publicationYear: { type: Number, required: true },
+  publisher: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Publisher",
+    required: true,
+  },
+  author: { type: String, required: true },
+  bookStatus: {
+    type: String,
+    default: "Available",
+  },
+  categories: [
+    {
+      type: mongoose.Types.ObjectId,
+      ref: "BookCategory",
+    },
+  ],
+  transactions: [
+    {
+      type: mongoose.Types.ObjectId,
+      ref: "BookTransaction",
+    },
+  ],
 });
+bookSchema.index({ title: "text" });
 
-module.exports = mongoose.model('Book', bookSchema);
+export default mongoose.model("Book", BookSchema);

@@ -1,4 +1,3 @@
 /manage-library-backend/node_modules/
-/manage-library-frontend/client/node_modules/
-/manage-library-frontend/admin/node_modules/
+/manage-library-frontend/node_modules/
 .env
