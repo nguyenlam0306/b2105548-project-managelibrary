@@ -3,18 +3,17 @@ import PublisherController from "../controllers/publisher.controller.js";
 
 const router = express.Router();
 
-router.get("/allpublisher", PublisherController.getAllPublishers);
-router.get(
-  "getpublisher/:id",
+router.get("/allpublishers", PublisherController.getAllPublishers);
+router.get( "/getpublisher/:id",
   PublisherController.getPublisherById
 );
 router.post("/addpublisher", PublisherController.createPublisher);
 router.put(
-  "updatepublisher/:id",
+  "/updatepublisher/:id",
   PublisherController.updatePublisher
 );
 router.delete(
-  "deletepublisher/:id",
+  "/deletepublisher/:id",
   PublisherController.deletePublisher
 );
 

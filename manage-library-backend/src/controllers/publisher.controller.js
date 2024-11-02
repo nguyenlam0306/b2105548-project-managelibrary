@@ -27,7 +27,11 @@ class PublisherController {
   // Tạo mới một nhà xuất bản
   static async createPublisher(req, res) {
     try {
-      const publisherData = { publisherID: req.body.publisherID,  publisherName: req.body.publisherName, address: req.body.address };
+      const publisherData = {
+        publisherID: req.body.publisherID,
+        publisherName: req.body.publisherName,
+        address: req.body.address,
+      };
 
       const publisher = await publisherService.createPublisher(publisherData);
       res.status(201).json(publisher);

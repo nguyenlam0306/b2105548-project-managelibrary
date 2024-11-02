@@ -6,6 +6,7 @@ import userRoutes from "./src/routers/user.route.js";
 import bookRoutes from "./src/routers/book.route.js";
 import publisherRoutes from "./src/routers/publisher.route.js";
 import transactionRoutes from "./src/routers/bookTransaction.route.js";
+import readerRoutes from "./src/routers/reader.route.js";
 import categoryRoutes from "./src/routers/bookCategory.route.js";
 
 /* App Config */
@@ -23,6 +24,7 @@ app.use("/api/books", bookRoutes);
 app.use("/api/transactions", transactionRoutes);
 app.use("/api/categories", categoryRoutes);
 app.use("/api/publishers", publisherRoutes);
+app.use("/api/readers", readerRoutes);
 
 /* Test Route */
 app.get("/", (req, res) => {

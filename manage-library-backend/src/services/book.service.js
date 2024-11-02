@@ -34,7 +34,7 @@ class BookService {
       { _id: savedBook.categories },
       { $push: { books: savedBook._id } }
     );
-    await Publisher.updateMany(
+    await Publisher.updateOne(
       { _id: savedBook.publisher },
       { $push: { books: savedBook._id } }
     );
