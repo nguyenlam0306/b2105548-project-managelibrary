@@ -1,11 +1,12 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import authRoutes from "./routes/auth.route.js";
-import userRoutes from "./routes/users.js";
-import bookRoutes from "./routes/books.route.js";
-import transactionRoutes from "./routes/bookTransactions.route.js";
-import categoryRoutes from "./routes/bookCategory.js";
+import authRoutes from "./src/routers/auth.route.js";
+import userRoutes from "./src/routers/user.route.js";
+import bookRoutes from "./src/routers/book.route.js";
+import publisherRoutes from "./src/routers/publisher.route.js";
+import transactionRoutes from "./src/routers/bookTransaction.route.js";
+import categoryRoutes from "./src/routers/bookCategory.route.js";
 
 /* App Config */
 dotenv.config();
@@ -26,6 +27,11 @@ app.use("/api/publishers", publisherRoutes);
 /* Test Route */
 app.get("/", (req, res) => {
   res.status(200).send("Welcome to LibraryApp");
+});
+
+/* 404 Not Found Middleware */
+app.use((req, res) => {
+  res.status(404).json({ message: "404 Not Found" });
 });
 
 export default app;

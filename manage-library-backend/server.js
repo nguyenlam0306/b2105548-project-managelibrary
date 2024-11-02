@@ -5,8 +5,6 @@ import app from "./app.js";
 const port = process.env.PORT || 8080;
 mongoose
   .connect(process.env.MONGO_URL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
   })
   .then(() => {
     console.log("Ket noi Database voi MongoDB thanh cong");

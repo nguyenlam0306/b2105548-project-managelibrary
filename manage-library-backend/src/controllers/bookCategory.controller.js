@@ -21,4 +21,4 @@ class BookCategoryController {
   }
 }
 
-export default new BookCategoryController();
+export default BookCategoryController;

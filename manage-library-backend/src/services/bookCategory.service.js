@@ -1,4 +1,4 @@
-import BookCategory from "../models/BookCategory.js";
+import BookCategory from "../models/bookCategory.model.js";
 
 class BookCategoryService {
   async getAllCategories() {

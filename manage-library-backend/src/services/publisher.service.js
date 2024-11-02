@@ -1,22 +1,35 @@
-import Publisher from "../models/Publisher.js";
+import Publisher from "../models/publisher.model.js";
 
-export const getAllPublishers = async () => {
-  return await Publisher.find({});
-};
+class PublisherService {
+  // Lấy tất cả các nhà xuất bản
+  static async getAllPublishers() {
+    return await Publisher.find({});
+  }
 
-export const getPublisherById = async (id) => {
-  return await Publisher.findById(id);
-};
+  // Lấy nhà xuất bản theo ID
+  static async getPublisherById(id) {
+    return await Publisher.findById(id);
+  }
 
-export const createPublisher = async (data) => {
-  const newPublisher = new Publisher(data);
-  return await newPublisher.save();
-};
+  // Tạo mới một nhà xuất bản
+  static async createPublisher(data) {
+    const newPublisher = new Publisher({
+      publisherID: data.publisherID,
+      publisherName: data.publisherName,
+      publisherAddress: data.publisherAddress,
+    });
+    return await newPublisher.save();
+  }
 
-export const updatePublisher = async (id, data) => {
-  return await Publisher.findByIdAndUpdate(id, data, { new: true });
-};
+  // Cập nhật nhà xuất bản theo ID
+  static async updatePublisher(id, data) {
+    return await Publisher.findByIdAndUpdate(id, data, { new: true });
+  }
 
-export const deletePublisher = async (id) => {
-  return await Publisher.findByIdAndDelete(id);
-};
+  // Xóa nhà xuất bản theo ID
+  static async deletePublisher(id) {
+    return await Publisher.findByIdAndDelete(id);
+  }
+}
+
+export default PublisherService;

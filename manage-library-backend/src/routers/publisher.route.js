@@ -1,18 +1,21 @@
 import express from "express";
-import {
-  getAllPublishers,
-  getPublisherById,
-  createPublisher,
-  updatePublisher,
-  deletePublisher,
-} from "../controllers/publisher.controller.js";
+import PublisherController from "../controllers/publisher.controller.js";
 
 const router = express.Router();
 
-router.get("/", getAllPublishers);
-router.get("/:id", getPublisherById);
-router.post("/", createPublisher);
-router.put("/:id", updatePublisher);
-router.delete("/:id", deletePublisher);
+router.get("/allpublisher", PublisherController.getAllPublishers);
+router.get(
+  "getpublisher/:id",
+  PublisherController.getPublisherById
+);
+router.post("/addpublisher", PublisherController.createPublisher);
+router.put(
+  "updatepublisher/:id",
+  PublisherController.updatePublisher
+);
+router.delete(
+  "deletepublisher/:id",
+  PublisherController.deletePublisher
+);
 
 export default router;

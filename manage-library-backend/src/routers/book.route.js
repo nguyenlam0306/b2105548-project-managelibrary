@@ -1,16 +1,22 @@
-import express from "express"
-import BookController from "../controllers/book.controller.js"
+import express from "express";
+import BookController from "../controllers/book.controller.js";
 
 const router = express.Router();
 
-router.get("/allbooks", BookController.getAllBooks);
-router.get("/getbook/:id", BookController.getBookById);
-router.get("/", BookController.getBooksByCategory);
-router.post("/addbook", BookController.addBook);
-router.put("/updatebook/:id", BookController.updateBook);
-router.delete("/removebook/:id", BookController.deleteBook);
+// Tạo một instance của BookController
+const bookController = new BookController();
+
+router.get("/getallbooks", bookController.getAllBooks.bind(bookController));
+router.get("/getbook/:id", bookController.getBookById.bind(bookController));
+router.get("/", bookController.getBooksByCategory.bind(bookController));
+router.post("/addbook", bookController.addBook.bind(bookController));
+router.put("/updatebook/:id", bookController.updateBook.bind(bookController));
+router.delete(
+  "/removebook/:id",
+  bookController.deleteBook.bind(bookController)
+);
 
 // Route tìm kiếm sách theo tiêu đề
-router.get("/search", BookController.searchBooksByTitle);
+router.get("/search", bookController.searchBooksByTitle.bind(bookController));
 
 export default router;

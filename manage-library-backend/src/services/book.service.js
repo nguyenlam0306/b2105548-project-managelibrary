@@ -1,6 +1,6 @@
 import Book from "../models/book.model.js"; 
 import BookCategory from "../models/bookCategory.model.js";
-
+import Publisher from "../models/publisher.model.js"
 class BookService {
   async getAllBooks() {
     return await Book.find({}).populate("transactions").sort({ _id: -1 });
@@ -12,6 +12,9 @@ class BookService {
 
   async getBooksByCategory(categoryName) {
     return await BookCategory.findOne({ categoryName }).populate("books");
+  }
+  async getBookByPublisher(publisherName) {
+    return await Publisher.findOne({ publisherName }).populate("books");
   }
 
   async addBook(bookData) {
@@ -25,11 +28,14 @@ class BookService {
       author: bookData.author,
       bookStatus: bookData.bookStatus || "Available", // Giá trị mặc định nếu không được cung cấp
       categories: bookData.categories,
-      transactions: bookData.transactions || [],
     });
     const savedBook = await newBook.save();
     await BookCategory.updateMany(
       { _id: savedBook.categories },
+      { $push: { books: savedBook._id } }
+    );
+    await Publisher.updateMany(
+      { _id: savedBook.publisher },
       { $push: { books: savedBook._id } }
     );
     return savedBook;
@@ -43,11 +49,18 @@ class BookService {
     const book = await Book.findById(id);
     if (!book) throw new Error("Book not found");
 
-    await book.remove();
-    await BookCategory.updateMany(
-      { _id: book.categories },
-      { $pull: { books: book._id } }
-    );
+    // Xóa sách
+    await Book.findByIdAndDelete(id);
+
+    try {
+      await BookCategory.updateMany(
+        { _id: book.categories },
+        { $pull: { books: book._id } }
+      );
+    } catch (error) {
+      throw new Error("Failed to update categories: " + error.message);
+    }
+
     return "Book has been deleted";
   }
   async searchBooksByTitle(title) {

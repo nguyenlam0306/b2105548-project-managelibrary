@@ -91,4 +91,4 @@ class BookController {
   }
 }
 
-export default new BookController();
+export default BookController;
