@@ -1,13 +1,33 @@
-<script>
-export default {
-}
+<script setup>
+import { useSocketStore } from "./stores/socket.store";
+import { onBeforeMount, onBeforeUnmount } from "vue"
+const socketStore = useSocketStore()
+onBeforeMount(() => {
+    socketStore.connect()
+})
+onBeforeUnmount(() => {
+    socketStore.disconnect()
+})
 </script>
+
+<!-- src/App.vue -->
 <template>
-<h1>Hello, Vue.js!</h1>
+  <div id="app">
+    <Header/>
+    <router-view />
+  </div>
 </template>
-<style>
-.page {
-max-width: 400px;
-margin: auto;
-}
+
+<script>
+import Header from './components/Header.vue';
+
+export default {
+  components: {
+    Header
+  }
+};
+</script>
+
+<style scoped>
+/* global styles */
 </style>
