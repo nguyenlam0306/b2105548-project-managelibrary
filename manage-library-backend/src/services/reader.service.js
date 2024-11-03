@@ -9,12 +9,12 @@ class ReaderService {
 
   // Lấy tất cả reader
   async getAllReaders() {
-    return await Reader.find({}).populate("transactions");
+    return await Reader.find({}).populate("transactions").sort({ _id: -1 });
   }
 
   // Lấy thông tin một reader theo ID
   async getReaderById(id) {
-    return await Reader.findById(id).populate("transactions");
+    return await Reader.findById(id).populate("transactions").sort({ _id: -1 });
   }
 
   // Cập nhật thông tin reader

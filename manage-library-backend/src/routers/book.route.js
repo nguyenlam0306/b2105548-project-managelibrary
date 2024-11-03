@@ -6,13 +6,13 @@ const router = express.Router();
 // Tạo một instance của BookController
 const bookController = new BookController();
 
-router.get("/getallbooks", bookController.getAllBooks.bind(bookController));
-router.get("/getbook/:id", bookController.getBookById.bind(bookController));
+router.get("/all", bookController.getAllBooks.bind(bookController));
+router.get("/:id", bookController.getBookById.bind(bookController));
 router.get("/", bookController.getBooksByCategory.bind(bookController));
-router.post("/addbook", bookController.addBook.bind(bookController));
-router.put("/updatebook/:id", bookController.updateBook.bind(bookController));
+router.post("/add", bookController.addBook.bind(bookController));
+router.put("/update/:id", bookController.updateBook.bind(bookController));
 router.delete(
-  "/removebook/:id",
+  "/delete/:id",
   bookController.deleteBook.bind(bookController)
 );
 

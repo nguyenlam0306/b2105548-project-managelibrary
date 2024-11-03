@@ -5,19 +5,19 @@ const router = express.Router();
 
 // Các route cho book transactions
 router.post(
-  "/add-transaction",
+  "/add",
   BookTransactionController.addTransaction
 );
 router.get(
-  "/all-transactions",
+  "/all",
   BookTransactionController.getAllTransactions
 );
 router.put(
-  "/update-transaction/:id",
+  "/update/:id",
   BookTransactionController.updateTransaction
 );
 router.delete(
-  "/remove-transaction/:id",
+  "/delete/:id",
   BookTransactionController.deleteTransaction
 );
 

@@ -7,11 +7,11 @@ const router = express.Router();
 const bookCategoryController = new BookCategoryController();
 
 router.get(
-  "/allcategories",
+  "/all",
   bookCategoryController.getAllCategories.bind(bookCategoryController)
 );
 router.post(
-  "/addcategory",
+  "/add",
   bookCategoryController.addCategory.bind(bookCategoryController)
 );
 

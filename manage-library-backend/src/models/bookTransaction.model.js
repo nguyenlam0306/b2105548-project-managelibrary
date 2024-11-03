@@ -6,8 +6,7 @@ const BookTransactionSchema = new mongoose.Schema(
       type: String,
       require: true,
     },
-    borrowerId: {
-      //EmployeeId or AdmissionId
+    borrowerId: {     
       type: String,
       require: true,
     },
