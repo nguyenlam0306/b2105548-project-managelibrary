@@ -52,11 +52,11 @@
 
 <script setup>
 import { ref } from 'vue'
-import AddTransaction from './Components/AddTransaction.vue'
-import AddMember from './Components/AddMember.vue'
-import AddBook from './Components/AddBook.vue'
-import GetMember from './Components/GetMember.vue'
-import Return from './Components/Return.vue'
+import AddTransaction from '..AddTransaction.vue'
+import AddMember from '../components/AddMember.vue'
+import AddBook from '../components/AddBook.vue'
+import GetMember from '../components/GetMember.vue'
+import Return from '../components/Return.vue'
 
 const active = ref('addbook')
 const sidebar = ref(false)
