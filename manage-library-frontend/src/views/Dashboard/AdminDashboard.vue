@@ -86,6 +86,6 @@ const options = [
 </script>
 
 <style scoped>
-@import "./AdminDashboard.css";
+@import "../../assets/AdminDashboard.css";
 
 </style>

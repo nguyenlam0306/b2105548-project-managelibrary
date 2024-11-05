@@ -58,10 +58,10 @@ class BookService {
         { $pull: { books: book._id } }
       );
     } catch (error) {
-      throw new Error("Failed to update categories: " + error.message);
+      throw new Error("Thất bại khi thay đổi " + error.message);
     }
 
-    return "Book has been deleted";
+    return "Sách đã được xóa";
   }
   async searchBooksByTitle(title) {
     return await Book.find({ $text: { $search: title } });

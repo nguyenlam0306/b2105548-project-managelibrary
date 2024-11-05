@@ -72,7 +72,7 @@
 
 <script>
 import axios from 'axios';
-import DatePicker from 'vuejs-datepicker';
+import DatePicker from 'vue-datepicker';
 import VSelect from 'vue-select';
 
 export default {

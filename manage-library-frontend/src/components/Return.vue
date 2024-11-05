@@ -183,6 +183,6 @@ export default {
 </script>
 
 <style scoped>
-@import '../AdminDashboard.css';
-@import '../../MemberDashboard/MemberDashboard.css';
+@import '../assets/AdminDashboard.css';
+@import '../assets/MemberDashboard.css';
 </style>

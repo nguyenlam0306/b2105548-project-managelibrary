@@ -27,5 +27,5 @@ export default {
 </script>
 
 <style scoped>
-@import './PhotoGallery.css';
+
 </style>

@@ -155,5 +155,5 @@ export default {
 </script>
 
 <style scoped>
-@import "./MemberDashboard.css";
+@import "../../assets/MemberDashboard.css";
 </style>

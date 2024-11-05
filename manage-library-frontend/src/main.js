@@ -2,7 +2,7 @@ import { createApp } from "vue";
 import { createPinia } from "pinia";
 import App from "./App.vue";
 // import { BootstrapVue3 } from "bootstrap-vue";
-import router from "./router"; // Đường dẫn đến cấu hình router
+import router from "./router/index"; // Đường dẫn đến cấu hình router
 import { useAuthStore } from "./stores/auth.store";
 import "./assets/main.css"; // Import CSS tùy chọn từ thư mục assets
 import "bootstrap/dist/css/bootstrap.min.css"; // CSS Bootstrap
