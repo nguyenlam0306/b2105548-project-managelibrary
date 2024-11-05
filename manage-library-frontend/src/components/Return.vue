@@ -11,11 +11,11 @@
     <p class="dashboard-option-title">Issued</p>
     <table class="admindashboard-table">
       <tr>
-        <th>Book Name</th>
-        <th>Borrower Name</th>
-        <th>From Date</th>
-        <th>To Date</th>
-        <th>Fine</th>
+        <th>Tên sách</th>
+        <th>Người mượn</th>
+        <th>Từ ngày</th>
+        <th>Đến ngày</th>
+        <th>Tình trạng</th>
         <th></th>
       </tr>
       <tr
@@ -29,19 +29,19 @@
         <td>{{ calculateFine(data.toDate) }}</td>
         <td>
           <button @click="returnBook(data._id, data.borrowerId, data.bookId, calculateDue(data.toDate))">
-            Return
+            Trả sách
           </button>
         </td>
       </tr>
     </table>
 
-    <p class="dashboard-option-title">Reserved</p>
+    <p class="dashboard-option-title">Đặt sách</p>
     <table class="admindashboard-table">
       <tr>
-        <th>Book Name</th>
-        <th>Borrower Name</th>
-        <th>From Date</th>
-        <th>To Date</th>
+        <th>Tên sách</th>
+        <th>Người mượn</th>
+        <th>Từ ngày</th>
+        <th>Trả ngày</th>
         <th></th>
       </tr>
       <tr
@@ -93,7 +93,7 @@ export default {
   methods: {
     async getMembers() {
       try {
-        const response = await axios.get(this.API_URL + 'api/users/allmembers');
+        const response = await axios.get(this.API_URL + 'api/users/all');
         this.allMembersOptions = response.data.map(member => ({
           value: member._id,
           text: member.userType === 'Student'
