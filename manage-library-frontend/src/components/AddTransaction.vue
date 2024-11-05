@@ -1,9 +1,9 @@
 <template>
   <div>
-    <p class="dashboard-option-title">Add a Transaction</p>
+    <p class="dashboard-option-title">Thêm mới giao dịch</p>
     <div class="dashboard-title-line"></div>
     <form class="transaction-form" @submit.prevent="addTransaction">
-      <label class="transaction-form-label" for="borrowerId">Borrower<span class="required-field">*</span></label><br />
+      <label class="transaction-form-label" for="borrowerId">Người mượn<span class="required-field">*</span></label><br />
       <div class="semanticdropdown">
         <v-select
           :options="allMembers"
@@ -22,7 +22,7 @@
           <th>Điểm</th>
         </tr>
         <tr>
-          <td>{{ borrowerDetails.userFullName }}</td>
+          <td>{{ borrowerDetails.fullName }}</td>
           <td>{{ borrowerDetails.activeTransactions.filter(data => data.transactionType === 'Issued' && data.transactionStatus === 'Active').length }}</td>
           <td>{{ borrowerDetails.activeTransactions.filter(data => data.transactionType === 'Reserved' && data.transactionStatus === 'Active').length }}</td>
           <td>{{ borrowerDetails.points }}</td>
@@ -102,7 +102,7 @@ export default {
     DatePicker
   },
   setup() {
-    const API_URL = import.meta.env.VITE_API_URL
+    const API_URL = import.meta.env.VUE_APP_API_URL
     const isLoading = ref(false)
     const borrowerId = ref('')
     const borrowerDetails = ref({})
@@ -122,12 +122,12 @@ export default {
     const addTransaction = async () => {
       isLoading.value = true
       try {
-        const borrower_details = await axios.get(`${API_URL}/api/users/getuser/${borrowerId.value}`)
-        const book_details = await axios.get(`${API_URL}/api/books/getbook/${bookId.value}`)
+        const borrower_details = await axios.get(`${API_URL}/api/users/${borrowerId.value}`)
+        const book_details = await axios.get(`${API_URL}/api/books/${bookId.value}`)
         const transactionData = {
           bookId: bookId.value,
           borrowerId: borrowerId.value,
-          borrowerName: borrower_details.data.userFullName,
+          borrowerName: borrower_details.data.fullName,
           bookName: book_details.data.bookName,
           transactionType: transactionType.value,
           fromDate: fromDate.value,
@@ -137,7 +137,7 @@ export default {
         const response = await axios.post(`${API_URL}/api/transactions/add`, transactionData)
         recentTransactions.value.unshift(response.data)
       } catch (error) {
-        console.error("Error in adding transaction", error)
+        console.error("Lỗi khi thêm mới giao dịch", error)
       }
       isLoading.value = false
     }

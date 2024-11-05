@@ -4,7 +4,7 @@ class BookTransactionController {
   static async addTransaction(req, res) {
     try {
       if (!req.body.isAdmin)
-        return res.status(403).json("You are not allowed to add a Transaction");
+        return res.status(403).json("Bạn không có quyền thêm giao dịch");
 
       const transaction = await bookTransactionService.addTransaction(req.body);
       res.status(200).json(transaction);
@@ -24,13 +24,13 @@ class BookTransactionController {
 
  static async updateTransaction(req, res) {
     try {
-      if (!req.body.isAdmin) return res.status(403).json("Permission denied.");
+      if (!req.body.isAdmin) return res.status(403).json("Quyền bị từ chối.");
 
       const updatedTransaction = await bookTransactionService.updateTransaction(
         req.params.id,
         req.body
       );
-      res.status(200).json("Transaction details updated successfully");
+      res.status(200).json("Giao dịch được cập nhật thành công");
     } catch (err) {
       res.status(504).json(err);
     }

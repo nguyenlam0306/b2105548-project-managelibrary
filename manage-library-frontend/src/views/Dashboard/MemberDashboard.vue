@@ -133,7 +133,7 @@ export default {
 
     onMounted(async () => {
       try {
-        const response = await axios.get(`${API_URL}api/users/getuser/${user.value._id}`);
+        const response = await axios.get(`${API_URL}api/users/${user.value._id}`);
         memberDetails.value = response.data;
       } catch (err) {
         console.error("Error in fetching the member details");
