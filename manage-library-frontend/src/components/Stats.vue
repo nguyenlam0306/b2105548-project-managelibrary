@@ -1,17 +1,24 @@
 <template>
   <div class="stats">
     <div class="stats-block">
-     <i class="fa-solid fa-book-open"></i>
+    <span class="stats-icon">
+   <i class="fa-solid fa-book-open"></i>
+    </span>
+     
       <p class="stats-title">Tổng số sách</p>
       <p class="stats-count">300</p>
     </div>
     <div class="stats-block">
-     <i class="fa-regular fa-user"></i>
+    <span class="stats-icon">
+      <i class="fa-brands fa-algolia"></i>
+    </span>
       <p class="stats-title">Truy cập</p>
       <p class="stats-count">80</p>
     </div>
     <div class="stats-block">
-      
+   <span class="stats-icon">
+      <i class="fa-solid fa-calendar-days"></i>
+    </span>   
       <p class="stats-title">Đã đặt hàng</p>
       <p class="stats-count">78</p>
     </div>
@@ -33,13 +40,14 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgb(247,235,215);
+    background-color: rgb(208, 222, 246);
     flex-wrap: wrap;
     padding: 20px;
 }
 
 .stats-icon{
     align-items: center;
+    font-size: 36px;
 }
 
 .stats-block{

@@ -1,13 +1,13 @@
 <template>
-  <div class="signin-container">
+  <div class="signin-container mt-2">
     <div class="signin-card">
       <form @submit.prevent="handleForm">
         <h2 class="signin-title">Đăng nhập</h2>
         <p class="line"></p>
         <div class="persontype-question">
-          <p>Có phải bạn là nhân viên?</p>
-          <input type="checkbox" v-model="isStudent" id="isStudent" />
-          <label for="isStudent">Nhân viên</label>
+          <p class="p-2">Bạn là nhân viên?   <input type="checkbox" v-model="isStudent" id="isStudent" />
+        <label for="isStudent" class="m-2">   Học sinh</label>  </p> 
+          
         </div>
         <div class="error-message"><p>{{ error }}</p></div>
         <div class="signin-fields">
@@ -32,10 +32,10 @@
           />
         </div>
         <button type="submit" class="signin-button">Đăng nhập</button>
-        <a class="forget-pass" href="#home">Forgot password?</a>
+        <a class="forget-pass" href="">Quên mật khẩu?</a>
       </form>
       <div class="signup-option">
-        <p class="signup-question">Don't have an account? Contact Librarian</p>
+        <p class="signup-question">Bạn chưa có tài khoản? Hãy liên hệ nhân viên</p>
       </div>
     </div>
   </div>
@@ -47,42 +47,6 @@ import axios from "axios";
 
 export default {
   name: "Signin",
-  setup() {
-    const isStudent = ref(true);
-    const admissionId = ref("");
-    const employeeId = ref("");
-    const password = ref("");
-    const error = ref("");
-    const { dispatch } = inject("AuthContext");
-
-    const API_URL = import.meta.env.VITE_API_URL;
-
-    const loginCall = async (userCredential) => {
-      dispatch({ type: "LOGIN_START" });
-      try {
-        const res = await axios.post(`${API_URL}api/auth/signin`, userCredential);
-        dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
-      } catch (err) {
-        dispatch({ type: "LOGIN_FAILURE", payload: err });
-        error.value = "Wrong Password Or Username";
-      }
-    };
-
-    const handleForm = () => {
-      isStudent.value
-        ? loginCall({ admissionId: admissionId.value, password: password.value })
-        : loginCall({ employeeId: employeeId.value, password: password.value });
-    };
-
-    return {
-      isStudent,
-      admissionId,
-      employeeId,
-      password,
-      error,
-      handleForm,
-    };
-  },
 };
 </script>
 
@@ -90,8 +54,8 @@ export default {
 .signin-container {
   display: grid;
   place-items: center;
-  height: 100vh;
-  background-color: wheat;
+  height: 90vh;
+  background-color: rgb(198, 222, 254);
   position: relative;
 }
 

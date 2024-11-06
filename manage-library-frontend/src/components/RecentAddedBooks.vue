@@ -35,39 +35,39 @@ export default {
 </script>
 
 <style scoped>
-.recentaddedbooks-container{
-    background-color: rgb(16,25,13);
+.recentaddedbooks-container {
+    background-color: #F3F3E0; /* Màu nền chính cho container */
     display: flex;
     flex-direction: column;
 }
 
-.recentbooks{
+.recentbooks {
     padding: 20px;
     overflow: hidden;
     width: 100%;
-    margin: 0 auto;	
+    margin: 0 auto;
     position: relative;
-	display: flex;
+    display: flex;
 }
 
-.recentbooks:hover div{
+.recentbooks:hover div {
     animation-play-state: paused;
 }
 
-.recentbooks-title{
+.recentbooks-title {
     position: relative;
-    color: rgb(238,129,30);
+    color: #133E87; /* Màu chữ tiêu đề */
     font-size: 32px;
     text-align: center;
 }
 
-.recent-book:hover{
+.recent-book:hover {
     transform: scale(1.15);
     transition: all ease 0.7s;
     animation-play-state: paused;
 }
 
-.images{
+.images {
     animation: marquee 15s linear infinite;
     display: flex;
     position: relative;
@@ -75,16 +75,19 @@ export default {
     justify-content: center;
 }
 
-.recent-book{
+.recent-book {
     display: block;
     width: 150px;
     height: auto;
     margin: 0 1vw;
     border-radius: 5px;
+    border: 2px solid #608BC1; /* Viền của ảnh */
+    background-color: #CBDCEB; /* Màu nền cho ảnh */
 }
 
 @keyframes marquee {
-	0%   { transform: translateX(0%); }
-	100% { transform: translateX(-100%); }
+    0% { transform: translateX(0%); }
+    100% { transform: translateX(-100%); }
 }
+
 </style>

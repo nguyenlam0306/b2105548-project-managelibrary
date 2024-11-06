@@ -52,33 +52,41 @@ export default {
 </script>
 
 <style scoped>
-.reservedbooks-container{
-    background-color: rgb(16,25,13);
+.reservedbooks-container {
+    background-color: #F3F3E0; /* Màu nền của container */
     padding: 20px;
     display: flex;
     flex-direction: column;
 }
 
 .reservedbooks-table {
-    font-family: arial, sans-serif;
+    font-family: Arial, sans-serif;
     border-collapse: collapse;
     width: 100%;
     max-width: 1024px;
-    margin: 0px auto;
+    margin: 0 auto;
     padding: 15px!important;
 }
-  
-.reservedbooks-table td,.reservedbooks-table th {
-    border: 2px solid #696969;
+
+.reservedbooks-table td, .reservedbooks-table th {
+    border: 2px solid #133E87; /* Màu viền bảng */
     text-align: left;
     padding: 8px;
-    background-color: #dddddd;
+    background-color: #CBDCEB; /* Màu nền ô trong bảng */
+    color: #133E87; /* Màu chữ trong bảng */
 }
 
-.reservedbooks-title{
+.reservedbooks-title {
     position: relative;
-    color: rgb(238,129,30);
+    color: #133E87; /* Màu chữ tiêu đề */
     text-align: center;
     font-size: 32px;
 }
+
+/* Các ô tiêu đề (th) sẽ có màu khác biệt để tạo điểm nhấn */
+.reservedbooks-table th {
+    background-color: #608BC1; /* Màu nền của ô tiêu đề */
+    color: #F3F3E0; /* Màu chữ ô tiêu đề */
+}
+
 </style>

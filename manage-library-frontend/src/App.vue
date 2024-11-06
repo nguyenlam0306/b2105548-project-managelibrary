@@ -22,7 +22,7 @@ onBeforeUnmount(() => {
 <script>
 export default {
   components: {
-    Header
+    Header,
   }
 };
 </script>

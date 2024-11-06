@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import { io } from "socket.io-client";
 
-const VUE_APP_SOCKET_ENDPOINT = "http://localhost:8080";
+const VUE_APP_SOCKET_ENDPOINT = "http://localhost:4000";
 
 export const useSocketStore = defineStore({
   id: "Socket",

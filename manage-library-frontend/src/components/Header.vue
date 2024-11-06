@@ -11,7 +11,7 @@
       <ul :class="{ 'nav-options': true, 'active': menutoggle }">
         <li class="option" @click="closeMenu">
           <router-link to="/">
-            <a href="#home">Trang chủ</a>
+            <a href="#home">Home</a>
           </router-link>
         </li>
         <li class="option" @click="closeMenu">
@@ -20,16 +20,21 @@
           </router-link>
         </li>
         <li class="option" @click="closeMenu">
+          <router-link to="/about">
+            <a href="#about">About</a>
+          </router-link>
+        </li>
+        <li class="option" @click="closeMenu">
           <router-link to="/signin">
-            <a href="signin"><font-awesome-icon :icon="['far', 'user']" /></a>
+            <a href="#signin"><i class="fa-solid fa-user"></i></a>
           </router-link>
         </li>
       </ul>
     </div>
 
     <div class="mobile-menu" @click="Toggle">
-      <span v-if="menutoggle" class="menu-icon clear-icon" style="font-size: 40px"><font-awesome-icon :icon="['fas', 'xmark']" /></span>
-      <span v-else class="menu-icon" style="font-size: 40px"><font-awesome-icon :icon="['fas', 'list']" /></span>
+      <span v-if="menutoggle" class="menu-icon clear-icon" style="font-size: 40px"><i class="fa-solid fa-bars"></i></span>
+      <span v-else class="menu-icon" style="font-size: 40px"> </span>
     </div>
   </div>
 </template>
@@ -55,7 +60,7 @@ export default {
 
 <style scoped>
 /*Desktop View*/
-.header{
+.header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -64,99 +69,98 @@ export default {
     width: 100%;
     position: fixed;
     z-index: 100;
-    background-color: #0F1035; /* Updated color */
+    background-color: #133E87; /* Màu nền của header */
     box-shadow: 0 1px 4px rgba(146,161,176,.15);
     top: 0%;
 }
 
-.logo-nav a{
+.logo-nav a {
     font-size: 20px;
-    color: #365486; /* Updated color */
+    color: #F3F3E0; /* Màu chữ của logo */
     font-weight: 800;
 }
 
-.logo-nav a:hover{
-    color: #7FC7D9; /* Updated color */
+.logo-nav a:hover {
+    color: #CBDCEB; /* Màu chữ khi hover */
     transition: all ease 0.5s;
 }
 
-.search-input{
+.search-input {
     width: 100%;
-    margin-left: 15px;
+    margin-left: 10px;
     max-width: 1800px;
     height: 40px;
     outline: none;
-    padding: 10px 15px;
+    padding: 10px 10px;
     font-size: 18px;
     border-radius: 10px;
-    border: 1px solid #DCF2F1; /* Updated color */
+    border: 1px solid #CBDCEB; /* Viền của ô tìm kiếm */
+    background-color: #F3F3E0; /* Nền của ô tìm kiếm */
+    color: #133E87; /* Màu chữ trong ô tìm kiếm */
 }
 
-.nav-options{
-    padding-left: 25px;
+.nav-options {
+    padding-left: 40px;
     display: flex;
     list-style-type: none;
-    margin-bottom: 15px!important;
+    margin-bottom: 15px !important;
 }
 
-.nav-right{
+.nav-right {
     display: flex;
     align-items: center;
     justify-content: center;
 }
-  
-.option{
+
+.option {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 0px 40px;
+    padding: 0px 30px;
     margin-top: 15px;
-    color: #365486; /* Updated color */
+    color: #133E87;
 }
 
-.option a{
-    color: #365486; /* Updated color */
+.option a {
+    color: #608BC1; /* Màu chữ của các liên kết trong nav */
     display: flex;
     align-items: center;
     font-weight: 800;
     font-size: 18px;
 }
 
-.option a:hover{
-    color: #7FC7D9; /* Updated color */
+.option a:hover {
+    color: #CBDCEB; /* Màu chữ khi hover */
     transition: all ease 0.5s;
 }
 
-a{
-    text-decoration: none!important;
-}
-  
-.option:hover{
-    color: #DCF2F1; /* Updated color */
+a {
+    text-decoration: none !important;
 }
 
-.mobile-menu{
+.option:hover {
+    color: #608BC1;
+}
+
+.mobile-menu {
     display: block;
 }
 
-/* Nav Options are given in this to make the search input as big as possible */
-
-@media (min-width: 768px){
-    .mobile-menu{
-        display: none!important;
+@media (min-width: 768px) {
+    .mobile-menu {
+        display: none !important;
     }
-    .header{
+    .header {
         display: grid;
         grid-template-columns: 10% 60%;
     }
 }
 
-@media (max-width: 768px){
-    /*Mobile View */
-    .header{
+@media (max-width: 768px) {
+    .header {
         padding: 0px 10px;
     }
-    .nav-options{
+    .nav-options {
         display: flex;
         width: 100%;
         height: 280px;
@@ -169,8 +173,8 @@ a{
         list-style-type: none;
         grid-gap: 0px;
     }
-    .nav-options.active{
-        background: black;
+    .nav-options.active {
+        background: #133E87; /* Màu nền của menu khi mở trên mobile */
         left: 0;
         opacity: 1;
         transition: all 0.5s ease;
@@ -179,17 +183,17 @@ a{
         padding-left: 0px;
     }
   
-    .menu-icon{
+    .menu-icon {
         width: 45px;
         height: 45px;
-        color: #365486; /* Updated color */
+        color: #F3F3E0; /* Màu của biểu tượng menu */
         padding: 2px;
-        background-color: #DCF2F1; /* Updated color */
+        background-color: #CBDCEB; /* Nền của biểu tượng menu */
         border-radius: 5px;
         cursor: pointer;
-        margin:0px 5px 0px 10px;
+        margin: 0px 5px 0px 10px;
     }
-    .option{
+    .option {
         display: flex;
         align-items: center;
         justify-content: center;

@@ -78,7 +78,7 @@ export default {
 
 <style scoped>
 .popularbooks-container{
-    background-color: rgb(247,235,215);
+    background-color: #cfe9f1;
     display: flex;
     flex-direction: column;
 }
