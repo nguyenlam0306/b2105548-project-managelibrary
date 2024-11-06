@@ -50,10 +50,15 @@ const routes = [
     },
   },
   { path: "/books", component: AllBooks },
+  {
+    path: "/:pathMatch(.*)*",
+    name: "notfound",
+    component: () => import("@/views/NotFound.vue"),
+  },
 ];
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHistory(import.meta.env.BASE_URL),
   routes,
 });
 

@@ -1,5 +1,6 @@
 <script setup>
-import { useSocketStore } from "./stores/socket.store";
+import Header from "@/components/Header.vue";
+import { useSocketStore } from "@/stores/socket.store";
 import { onBeforeMount, onBeforeUnmount } from "vue"
 const socketStore = useSocketStore()
 onBeforeMount(() => {
@@ -19,8 +20,6 @@ onBeforeUnmount(() => {
 </template>
 
 <script>
-import Header from './components/Header.vue';
-
 export default {
   components: {
     Header

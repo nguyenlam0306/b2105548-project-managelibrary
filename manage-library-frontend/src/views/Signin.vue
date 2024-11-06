@@ -2,11 +2,12 @@
   <div class="signin-container">
     <div class="signin-card">
       <form @submit.prevent="handleForm">
-        <h2 class="signin-title">Log in</h2>
+        <h2 class="signin-title">Đăng nhập</h2>
         <p class="line"></p>
         <div class="persontype-question">
-          <p>Are you a Staff member?</p>
-          <v-switch v-model="isStudent" color="primary" />
+          <p>Có phải bạn là nhân viên?</p>
+          <input type="checkbox" v-model="isStudent" id="isStudent" />
+          <label for="isStudent">Nhân viên</label>
         </div>
         <div class="error-message"><p>{{ error }}</p></div>
         <div class="signin-fields">
@@ -19,7 +20,7 @@
             required
             @input="isStudent ? (admissionId = $event.target.value) : (employeeId = $event.target.value)"
           />
-          <label for="password"><b>Password</b></label>
+          <label for="password"><b>Mật khẩu</b></label>
           <input
             class="signin-textbox"
             type="password"
@@ -30,7 +31,7 @@
             @input="password = $event.target.value"
           />
         </div>
-        <button type="submit" class="signin-button">Log In</button>
+        <button type="submit" class="signin-button">Đăng nhập</button>
         <a class="forget-pass" href="#home">Forgot password?</a>
       </form>
       <div class="signup-option">
@@ -43,14 +44,9 @@
 <script>
 import { ref, inject } from "vue";
 import axios from "axios";
-import { useRouter } from "vue-router";
-import { VSwitch } from "vueify";
 
 export default {
   name: "Signin",
-  components: {
-    VSwitch,
-  },
   setup() {
     const isStudent = ref(true);
     const admissionId = ref("");
@@ -120,7 +116,7 @@ form {
   padding: 30px;
 }
 
-.error-message{
+.error-message {
   color: red;
   font-weight: bold;
 }
@@ -140,12 +136,12 @@ form {
 .line {
   text-align: center;
   font-weight: bold;
-  border-bottom: 2px solid rgb(245 239 239);
+  border-bottom: 2px solid rgb(245, 239, 239);
   line-height: 2px;
   margin: 25px 0;
 }
 
-.persontype-question{
+.persontype-question {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -181,8 +177,6 @@ form {
   padding: 18px 20px;
   margin-top: 25px;
   margin-bottom: 20px;
-  margin-left: auto !important;
-  margin-left: auto !important;
   width: 100%;
   border-radius: 10px;
   border: none;
@@ -202,5 +196,4 @@ form {
   margin-top: 15px !important;
   padding: 15px;
 }
-
 </style>

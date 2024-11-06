@@ -22,10 +22,7 @@
 
 
 export default {
-  name: 'Stats',
-  components: {
-    BookIcon
-  }
+  name: 'Stats'
 };
 </script>
 

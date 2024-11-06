@@ -94,7 +94,7 @@ import axios from 'axios'
 import { ref, onMounted } from 'vue'
 import VSelect from 'vue-select'
 import 'vue-select/dist/vue-select.css'
-import DatePicker from 'vue-datepicker'
+import DatePicker from 'vue-datepicker-next'
 
 export default {
   components: {
