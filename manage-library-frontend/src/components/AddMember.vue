@@ -54,18 +54,22 @@
     <p class="dashboard-option-title">Recent Members</p>
     <div class="dashboard-title-line"></div>
     <table class="admindashboard-table">
-      <tr>
+      <thead>
+        <tr>
         <th>S.No</th>
         <th>Member Type</th>
         <th>Member ID</th>
         <th>Member Name</th>
       </tr>
-      <tr v-for="(member, index) in recentAddedMembers" :key="index">
+      </thead>
+      <tbody>
+        <tr v-for="(member, index) in recentAddedMembers" :key="index">
         <td>{{ index + 1 }}</td>
         <td>{{ member.userType }}</td>
         <td>{{ member.userType === 'Student' ? member.admissionId : member.employeeId }}</td>
         <td>{{ member.userFullName }}</td>
       </tr>
+      </tbody>
     </table>
   </div>
 </template>

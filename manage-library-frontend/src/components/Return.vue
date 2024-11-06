@@ -10,7 +10,8 @@
     </div>
     <p class="dashboard-option-title">Issued</p>
     <table class="admindashboard-table">
-      <tr>
+      <thead>
+        <tr>
         <th>Tên sách</th>
         <th>Người mượn</th>
         <th>Từ ngày</th>
@@ -18,7 +19,9 @@
         <th>Tình trạng</th>
         <th></th>
       </tr>
-      <tr
+      </thead>
+      <tbody>
+        <tr
         v-for="(data, index) in filteredIssuedTransactions"
         :key="index"
       >
@@ -33,18 +36,22 @@
           </button>
         </td>
       </tr>
+      </tbody>
     </table>
 
     <p class="dashboard-option-title">Đặt sách</p>
     <table class="admindashboard-table">
-      <tr>
+     <thead>
+       <tr>
         <th>Tên sách</th>
         <th>Người mượn</th>
         <th>Từ ngày</th>
         <th>Trả ngày</th>
         <th></th>
       </tr>
-      <tr
+     </thead>
+     <tbody>
+       <tr
         v-for="(data, index) in filteredReservedTransactions"
         :key="index"
       >
@@ -58,6 +65,7 @@
           </button>
         </td>
       </tr>
+     </tbody>
     </table>
   </div>
 </template>

@@ -14,7 +14,7 @@ export const useSocketStore = defineStore({
     },
 
     async disconnect() {
-      this.io.disconnect;
+      this.io.disconnect();
     },
   },
 });

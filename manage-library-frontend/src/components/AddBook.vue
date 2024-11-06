@@ -8,16 +8,20 @@
     
     <p class="dashboard-option-title">Sách đã thêm gần đây</p>
     <table class="admindashboard-table">
-      <tr>
+     <thead>
+       <tr>
         <th>STT</th>
         <th>Tên sách</th>
         <th>Đã thêm</th>
       </tr>
-      <tr v-for="(book, index) in recentAddedBooks" :key="index">
+     </thead>
+      <tbody>
+        <tr v-for="(book, index) in recentAddedBooks" :key="index">
         <td>{{ index + 1 }}</td>
         <td>{{ book.title }}</td>
         <td>{{ book.createdAt.substring(0, 10) }}</td>
       </tr>
+      </tbody>
     </table>
   </div>
 </template>

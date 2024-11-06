@@ -2,12 +2,15 @@
   <div class="reservedbooks-container">
     <h1 class="reservedbooks-title">Sách trên kệ</h1>
     <table class="reservedbooks-table">
-      <tr>
+      <thead>
+        <tr>
         <th>Tên sách</th>
         <th>Sách</th>
         <th>Ngày</th>
       </tr>
-      <tr>
+      </thead>
+      <tbody>
+        <tr>
         <td>Pranav</td>
         <td>Rich Dad Poor Dad</td>
         <td>12/7/2021</td>
@@ -37,6 +40,7 @@
         <td>Giovanni Rovelli</td>
         <td>02/7/2021</td>
       </tr>
+      </tbody>
     </table>
   </div>
 </template>

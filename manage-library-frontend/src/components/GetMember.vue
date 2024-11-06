@@ -57,20 +57,24 @@
       <div class="member-activebooks-content" id="activebooks@member">
         <p><b>Issued</b></p>
         <table class="activebooks-table">
-          <tr>
-            <th>S.No</th>
-            <th>Book-Name</th>
-            <th>From Date</th>
-            <th>To Date</th>
-            <th>Fine</th>
+          <thead>
+            <tr>
+            <th>STT</th>
+            <th>Tên sách</th>
+            <th>Từ</th>
+            <th>Đến ngày</th>
+            <th>Tình trạng phạt</th>
           </tr>
-          <tr v-for="(data, index) in issuedBooks" :key="index">
+          </thead>
+         <tbody>
+           <tr v-for="(data, index) in issuedBooks" :key="index">
             <td>{{ index + 1 }}</td>
             <td>{{ data.bookName }}</td>
             <td>{{ data.fromDate }}</td>
             <td>{{ data.toDate }}</td>
             <td>{{ calculateFine(data.toDate) }}</td>
           </tr>
+         </tbody>
         </table>
       </div>
 
@@ -78,18 +82,22 @@
       <div class="member-reservedbooks-content" id="reservedbooks@member">
         <p><b>Reserved</b></p>
         <table class="activebooks-table">
-          <tr>
+         <thead>
+           <tr>
             <th>S.No</th>
             <th>Book-Name</th>
             <th>From</th>
             <th>To</th>
           </tr>
-          <tr v-for="(data, index) in reservedBooks" :key="index">
+         </thead>
+          <tbody>
+            <tr v-for="(data, index) in reservedBooks" :key="index">
             <td>{{ index + 1 }}</td>
             <td>{{ data.bookName }}</td>
             <td>{{ data.fromDate }}</td>
             <td>{{ data.toDate }}</td>
           </tr>
+          </tbody>
         </table>
       </div>
 
@@ -97,20 +105,24 @@
       <div class="member-history-content" id="history@member">
         <p><b>History</b></p>
         <table class="activebooks-table">
-          <tr>
-            <th>S.No</th>
-            <th>Book-Name</th>
-            <th>From</th>
-            <th>To</th>
-            <th>Return Date</th>
+         <thead>
+           <tr>
+            <th>STT</th>
+            <th>Tên sách</th>
+            <th>Từ</th>
+            <th>Đến</th>
+            <th>Ngày trả</th>
           </tr>
-          <tr v-for="(data, index) in memberDetails.prevTransactions" :key="index">
+         </thead>
+         <tbody>
+           <tr v-for="(data, index) in memberDetails.prevTransactions" :key="index">
             <td>{{ index + 1 }}</td>
             <td>{{ data.bookName }}</td>
             <td>{{ data.fromDate }}</td>
             <td>{{ data.toDate }}</td>
             <td>{{ data.returnDate }}</td>
           </tr>
+         </tbody>
         </table>
       </div>
     </div>

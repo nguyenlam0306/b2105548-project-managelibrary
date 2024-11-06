@@ -27,9 +27,13 @@ export const useAuthStore = defineStore("auth", () => {
   }
 
   // Theo dõi trạng thái user và lưu vào localStorage khi thay đổi
-  watch(user, (newUser) => {
+watch(user, (newUser) => {
+  if (newUser) {
     localStorage.setItem("user", JSON.stringify(newUser));
-  });
+  } else {
+    localStorage.removeItem("user");
+  }
+});
 
   return {
     user,

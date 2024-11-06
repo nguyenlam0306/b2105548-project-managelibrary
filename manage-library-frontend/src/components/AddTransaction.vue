@@ -15,18 +15,22 @@
       </div>
 
       <table v-if="borrowerId" class="admindashboard-table shortinfo-table">
-        <tr>
+        <thead>
+          <tr>
           <th>Tên</th>
           <th>Đã phát hành</th>
           <th>Đã được đặt</th>
           <th>Điểm</th>
         </tr>
-        <tr>
+        </thead>
+        <tbody>
+          <tr>
           <td>{{ borrowerDetails.fullName }}</td>
           <td>{{ borrowerDetails.activeTransactions.filter(data => data.transactionType === 'Issued' && data.transactionStatus === 'Active').length }}</td>
           <td>{{ borrowerDetails.activeTransactions.filter(data => data.transactionType === 'Reserved' && data.transactionStatus === 'Active').length }}</td>
           <td>{{ borrowerDetails.points }}</td>
         </tr>
+        </tbody>
       </table>
 
       <label class="transaction-form-label" for="bookName">Tên sách<span class="required-field">*</span></label><br />
@@ -73,18 +77,22 @@
     <p class="dashboard-option-title">Mượn gần đây</p>
     <div class="dashboard-title-line"></div>
     <table class="admindashboard-table">
-      <tr>
+      <thead>
+        <tr>
         <th>STT</th>
         <th>Tên sách</th>
         <th>Người mượn</th>
         <th>Ngày</th>
       </tr>
-      <tr v-for="(transaction, index) in recentTransactions" :key="index">
+      </thead>
+      <tbody>
+        <tr v-for="(transaction, index) in recentTransactions" :key="index">
         <td>{{ index + 1 }}</td>
         <td>{{ transaction.bookName }}</td>
         <td>{{ transaction.borrowerName }}</td>
         <td>{{ transaction.updatedAt.slice(0, 10) }}</td>
       </tr>
+      </tbody>
     </table>
   </div>
 </template>

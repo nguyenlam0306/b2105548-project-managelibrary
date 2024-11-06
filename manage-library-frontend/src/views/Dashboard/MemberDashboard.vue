@@ -73,20 +73,24 @@
         <div v-if="active === 'active'" class="member-activebooks-content" id="activebooks@member">
           <p class="member-dashboard-heading">Issued</p>
           <table class="activebooks-table">
-            <tr>
+            <thead>
+             <tr>
               <th>STT</th>
               <th>Tên sách</th>
               <th>Mượn từ ngày</th>
               <th>Ngày trả dự kiến</th>
               <th>TÌnh trạng</th>
-            </tr>
-            <tr v-for="(data, index) in issuedBooks" :key="index">
+             </tr>
+            </thead>
+            <tbody>
+              <tr v-for="(data, index) in issuedBooks" :key="index">
               <td>{{ index + 1 }}</td>
               <td>{{ data.bookName }}</td>
               <td>{{ data.fromDate }}</td>
               <td>{{ data.toDate }}</td>
               <td>{{ calculateFine(data.toDate) }}</td>
             </tr>
+            </tbody>
           </table>
         </div>
 
