@@ -29,7 +29,7 @@ app.use("/api/readers", readerRoutes);
 
 /* Test Route */
 app.get("/", (req, res) => {
-  res.status(200).send("Welcome to LibraryApp");
+  res.status(200).send("Welcome to LibraryApp with socket.io");
 });
 
 /* 404 Not Found Middleware */

@@ -5,20 +5,32 @@
         <h2 class="signin-title">Đăng nhập</h2>
         <p class="line"></p>
         <div class="persontype-question">
-          <p class="p-2">Bạn là nhân viên?   <input type="checkbox" v-model="isStudent" id="isStudent" />
-        <label for="isStudent" class="m-2">   Học sinh</label>  </p> 
-          
+          <p class="p-2">
+            Bạn là nhân viên?
+            <input type="checkbox" v-model="isStudent" id="isStudent" />
+            <label for="isStudent" class="m-2"> Sinh viên</label>
+          </p>
         </div>
-        <div class="error-message"><p>{{ error }}</p></div>
+        <div class="error-message">
+          <p>{{ error }}</p>
+        </div>
         <div class="signin-fields">
-          <label :for="isStudent ? 'admissionId' : 'employeeId'"><b>{{ isStudent ? 'Admission ID' : 'Employee ID' }}</b></label>
+          <label :for="isStudent ? 'admissionId' : 'employeeId'"
+            ><b>{{ isStudent ? "Mã sinh viên" : "Mã nhân viên" }}</b></label
+          >
           <input
             class="signin-textbox"
             type="text"
-            :placeholder="isStudent ? 'Enter Admission ID' : 'Enter Employee ID'"
+            :placeholder="
+              isStudent ? 'Enter Student ID' : 'Enter Staff ID'
+            "
             :name="isStudent ? 'admissionId' : 'employeeId'"
             required
-            @input="isStudent ? (admissionId = $event.target.value) : (employeeId = $event.target.value)"
+            @input="
+              isStudent
+                ? (admissionId = $event.target.value)
+                : (employeeId = $event.target.value)
+            "
           />
           <label for="password"><b>Mật khẩu</b></label>
           <input
@@ -35,19 +47,40 @@
         <a class="forget-pass" href="">Quên mật khẩu?</a>
       </form>
       <div class="signup-option">
-        <p class="signup-question">Bạn chưa có tài khoản? Hãy liên hệ nhân viên</p>
+        <p class="signup-question">
+          Bạn chưa có tài khoản? Hãy liên hệ nhân viên
+        </p>
       </div>
     </div>
   </div>
 </template>
 
-<script>
-import { ref, inject } from "vue";
-import axios from "axios";
+<script setup>
+import { ref, reactive } from "vue";
+import { useAuthStore } from "../stores/auth.store";
+const authStore = useAuthStore();
+const isStudent = ref(true);
+const admissionId = ref("");
+const employeeId = ref("");
+const password = ref("")
+const error = ref("");
 
-export default {
-  name: "Signin",
-};
+async function handleForm() {
+    try {
+            const result = await authStore.login({
+    ...(isStudent.value ? { admissionId: admissionId.value } : { employeeId: employeeId.value }),
+    password: password.value
+});
+        error.admissionId = null
+        error.employeeId = null
+        error.password = null
+        error.value = "";
+    } catch (err) {     
+        // error.admissionId = err.response.data.error.admissionId;
+        // error.employeeId = err.response.data.error.employeeId;
+        error.value = "Sai tên đăng nhập hoặc mật khẩu";
+    }
+}
 </script>
 
 <style scoped>

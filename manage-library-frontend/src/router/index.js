@@ -1,13 +1,11 @@
-// src/router/index.js
 import { createRouter, createWebHistory } from "vue-router";
 import AllBooks from "@/views/AllBooks.vue";
 import About from "@/views/About.vue"
 import { nextTick } from "vue";
-// import { component } from "vue/types/umd";
-// import Signin from "@/views/Signin.vue";
+
 // import MemberDashboard from "@/views/Dashboard/MemberDashboard.vue";
 // import AdminDashboard from "@/views/Dashboard/AdminDashboard.vue";
-// import { useAuthStore } from "@/stores/auth.store.js";
+import { useAuthStore } from "@/stores/auth.store.js";
 
 const routes = [
   { path: "/", name: "Home", component: () => import("../views/Home.vue") },
@@ -55,18 +53,16 @@ const routes = [
   {
     path: "/signin",
     name: "Signin",
-    component: () => import("../views/Signin.vue"),
+    meta: {
+      requireAuth: false,
+    },
+    component: () => import("../views/Signin.vue")
   },
   {
     path: "/about",
     name: "About",
-    component: About
+    component: About,
   },
-  // {
-  //   path: "/:pathMatch(.*)*",
-  //   name: "notfound",
-  //   component: () => import("@/views/NotFound.vue"),
-  // },
 ];
 
 const router = createRouter({
@@ -74,4 +70,19 @@ const router = createRouter({
   routes,
 });
 
+
+router.beforeEach(async (to, from) => {
+  const authStore = useAuthStore();
+  if (to.meta.requireAuth && !authStore.user) {
+    authStore.returnURL = to.fullPath;
+    return {
+      path: "/signin",
+    };
+  }
+});
+router.afterEach((to, from) => {
+  nextTick(() => {
+    document.title = to.name;
+  });
+});
 export default router;
