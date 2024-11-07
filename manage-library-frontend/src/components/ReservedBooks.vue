@@ -4,7 +4,7 @@
     <table class="reservedbooks-table">
       <thead>
         <tr>
-        <th>Tên sách</th>
+        <th>Tác giả</th>
         <th>Sách</th>
         <th>Ngày</th>
       </tr>
@@ -54,9 +54,22 @@ export default {
 <style scoped>
 .reservedbooks-container {
     background-color: #F3F3E0; /* Màu nền của container */
-    padding: 20px;
+    padding: 30px;
     display: flex;
     flex-direction: column;
+    align-items: center;
+    border-radius: 10px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.reservedbooks-title {
+    color: #133E87;
+    text-align: center;
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 20px;
 }
 
 .reservedbooks-table {
@@ -65,28 +78,41 @@ export default {
     width: 100%;
     max-width: 1024px;
     margin: 0 auto;
-    padding: 15px!important;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.reservedbooks-table td, .reservedbooks-table th {
-    border: 2px solid #133E87; /* Màu viền bảng */
+.reservedbooks-table th, .reservedbooks-table td {
+    border: 2px solid #CBDCEB;
     text-align: left;
-    padding: 8px;
-    background-color: #CBDCEB; /* Màu nền ô trong bảng */
-    color: #133E87; /* Màu chữ trong bảng */
+    padding: 12px;
 }
 
-.reservedbooks-title {
-    position: relative;
-    color: #133E87; /* Màu chữ tiêu đề */
-    text-align: center;
-    font-size: 32px;
-}
-
-/* Các ô tiêu đề (th) sẽ có màu khác biệt để tạo điểm nhấn */
 .reservedbooks-table th {
-    background-color: #608BC1; /* Màu nền của ô tiêu đề */
-    color: #F3F3E0; /* Màu chữ ô tiêu đề */
+    background-color: #608BC1;
+    color: #F3F3E0;
+    font-size: 18px;
+    font-weight: bold;
+    text-transform: uppercase;
 }
+
+.reservedbooks-table td {
+    background-color: #CBDCEB;
+    color: #133E87;
+    font-size: 16px;
+}
+
+/* Hiệu ứng hover cho hàng dữ liệu */
+.reservedbooks-table tr:hover td {
+    background-color: #B0C8E1;
+    transition: background-color 0.3s ease;
+}
+
+/* Các ô có đường viền mềm mại */
+.reservedbooks-table th, .reservedbooks-table td {
+    border: none;
+}
+
 
 </style>

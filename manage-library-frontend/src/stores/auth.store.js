@@ -14,7 +14,7 @@ export const useAuthStore = defineStore({
     async login(user) {
       this.user = await authService.login(user);
       localStorage.setItem("user", JSON.stringify(this.user));
-      router.push(this.returnURL || "/");
+      router.push(this.returnURL || "/dashboard@admin");
       return this.user;
     },
   },

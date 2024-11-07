@@ -15,8 +15,8 @@
           </router-link>
         </li>
         <li class="option" @click="closeMenu">
-          <router-link to="/books">
-            <a href="#books">Sách</a>
+          <router-link to="/showlibrary">
+            <a href="#library">Sách</a>
           </router-link>
         </li>
         <li class="option" @click="closeMenu">

@@ -98,81 +98,81 @@
 </template>
 
 <script>
-import axios from 'axios'
-import { ref, onMounted } from 'vue'
-import VSelect from 'vue-select'
-import 'vue-select/dist/vue-select.css'
-import DatePicker from 'vue-datepicker-next'
+// import axios from 'axios'
+// import { ref, onMounted } from 'vue'
+// import VSelect from 'vue-select'
+// import 'vue-select/dist/vue-select.css'
+// import DatePicker from 'vue-datepicker-next'
 
-export default {
-  components: {
-    VSelect,
-    DatePicker
-  },
-  setup() {
-    const API_URL = import.meta.env.VUE_APP_API_URL
-    const isLoading = ref(false)
-    const borrowerId = ref('')
-    const borrowerDetails = ref({})
-    const bookId = ref('')
-    const recentTransactions = ref([])
-    const allMembers = ref([])
-    const allBooks = ref([])
-    const fromDate = ref(null)
-    const toDate = ref(null)
-    const transactionType = ref('')
+// export default {
+//   components: {
+//     VSelect,
+//     DatePicker
+//   },
+//   setup() {
+//     const API_URL = import.meta.env.VUE_APP_API_URL
+//     const isLoading = ref(false)
+//     const borrowerId = ref('')
+//     const borrowerDetails = ref({})
+//     const bookId = ref('')
+//     const recentTransactions = ref([])
+//     const allMembers = ref([])
+//     const allBooks = ref([])
+//     const fromDate = ref(null)
+//     const toDate = ref(null)
+//     const transactionType = ref('')
     
-    const transactionTypes = [
-      { value: 'Reserved', text: 'Reserve' },
-      { value: 'Issued', text: 'Issue' }
-    ]
+//     const transactionTypes = [
+//       { value: 'Reserved', text: 'Reserve' },
+//       { value: 'Issued', text: 'Issue' }
+//     ]
 
-    const addTransaction = async () => {
-      isLoading.value = true
-      try {
-        const borrower_details = await axios.get(`${API_URL}/api/users/${borrowerId.value}`)
-        const book_details = await axios.get(`${API_URL}/api/books/${bookId.value}`)
-        const transactionData = {
-          bookId: bookId.value,
-          borrowerId: borrowerId.value,
-          borrowerName: borrower_details.data.fullName,
-          bookName: book_details.data.bookName,
-          transactionType: transactionType.value,
-          fromDate: fromDate.value,
-          toDate: toDate.value
-        }
+//     const addTransaction = async () => {
+//       isLoading.value = true
+//       try {
+//         const borrower_details = await axios.get(`${API_URL}/api/users/${borrowerId.value}`)
+//         const book_details = await axios.get(`${API_URL}/api/books/${bookId.value}`)
+//         const transactionData = {
+//           bookId: bookId.value,
+//           borrowerId: borrowerId.value,
+//           borrowerName: borrower_details.data.fullName,
+//           bookName: book_details.data.bookName,
+//           transactionType: transactionType.value,
+//           fromDate: fromDate.value,
+//           toDate: toDate.value
+//         }
         
-        const response = await axios.post(`${API_URL}/api/transactions/add`, transactionData)
-        recentTransactions.value.unshift(response.data)
-      } catch (error) {
-        console.error("Lỗi khi thêm mới giao dịch", error)
-      }
-      isLoading.value = false
-    }
+//         const response = await axios.post(`${API_URL}/api/transactions/add`, transactionData)
+//         recentTransactions.value.unshift(response.data)
+//       } catch (error) {
+//         console.error("Lỗi khi thêm mới giao dịch", error)
+//       }
+//       isLoading.value = false
+//     }
 
-    const fetchTransactions = async () => {
-      const response = await axios.get(`${API_URL}/api/transactions/all`)
-      recentTransactions.value = response.data.slice(0, 5)
-    }
+//     const fetchTransactions = async () => {
+//       const response = await axios.get(`${API_URL}/api/transactions/all`)
+//       recentTransactions.value = response.data.slice(0, 5)
+//     }
 
-    onMounted(fetchTransactions)
+//     onMounted(fetchTransactions)
 
-    return {
-      isLoading,
-      borrowerId,
-      borrowerDetails,
-      bookId,
-      recentTransactions,
-      allMembers,
-      allBooks,
-      fromDate,
-      toDate,
-      transactionType,
-      transactionTypes,
-      addTransaction
-    }
-  }
-}
+//     return {
+//       isLoading,
+//       borrowerId,
+//       borrowerDetails,
+//       bookId,
+//       recentTransactions,
+//       allMembers,
+//       allBooks,
+//       fromDate,
+//       toDate,
+//       transactionType,
+//       transactionTypes,
+//       addTransaction
+//     }
+//   }
+// }
 </script>
 
 <style scoped>

@@ -13,24 +13,46 @@ export default {
 <template>
   <div class="" id="about">
     <div class="about-box mt-5" >
-    <h2 class="about-title">Về chúng tôi Lacos Library</h2>
+    <h2 class="about-title">Tầm nhìn Lacos Library</h2>
     <div class="about-data">
       <div class="about-img">
         <img
-          src="/public/2.svg"
+          src="/public/4.svg"
           alt=""
         />
       </div>
       <div>
         <p class="about-text">
-          Thư viện Lacos mang đến trải nghiệm thoải mái tiện lợi<br />
-          <br />
-          Được tin dùng hơn 100 máy chủ<br />
-          <br />
-          Đa dạng các loại sách<br />
-          <br />
-          Hãy trải nghiệm và đưa ra đánh giá
+         Quản lý dữ liệu sách dễ dàng – Thay vì theo dõi từng đầu sách bằng giấy tờ hoặc hệ thống cũ, bạn có thể lưu trữ mọi thông tin từ tiêu đề, tác giả, năm xuất bản, giá cả, đến ảnh bìa sách một cách đầy đủ và rõ ràng.
+
+Truy cập thông tin nhanh chóng – Người dùng có thể tra cứu sách theo tiêu đề, tác giả, hoặc thể loại chỉ trong vài giây. Điều này giúp tiết kiệm thời gian đáng kể cho cả nhân viên và người dùng thư viện.
+
+Bảo mật và phân quyền linh hoạt – Với tính năng xác thực và phân quyền chi tiết, nhân viên thư viện và người dùng đều có quyền truy cập theo nhu cầu, đảm bảo an toàn và thuận tiện khi sử dụng.
+
+Tối ưu hóa trải nghiệm người dùng – Giao diện đẹp mắt và thân thiện, được thiết kế với các màu sắc hài hòa giúp bạn có trải nghiệm sử dụng thoải mái và dễ dàng.
         </p>
+      </div>
+    </div>
+  </div>
+  </div>
+  <div class="" id="about">
+    <div class="about-box " >
+    <h2 class="about-title">Nhà sáng  lập Lacos Library</h2>
+    <div class="about-data">
+     
+      <div>
+        <p class="about-text">
+         Việc tạo ra giá trị kết nối trong cuộc sống giúp bạn có lối sống tiện nghi hơn.
+         Mục tiêu của chúng tôi là giúp thư viện trở nên thông minh, hiệu quả và gần gũi hơn với cộng đồng. Ứng dụng này không chỉ là công cụ, mà còn là giải pháp để quản lý thư viện thời đại mới, đáp ứng nhu cầu thông tin một cách chuyên nghiệp và nhanh chóng.
+         <br />
+         
+        </p>
+      </div>
+       <div class="about-img">
+        <img
+          src="/public/6.svg"
+          alt=""
+        />
       </div>
     </div>
   </div>

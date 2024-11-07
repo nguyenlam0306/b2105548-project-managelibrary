@@ -13,7 +13,7 @@
       <i class="fa-brands fa-algolia"></i>
     </span>
       <p class="stats-title">Truy cập</p>
-      <p class="stats-count">80</p>
+      <p class="stats-count">120</p>
     </div>
     <div class="stats-block">
    <span class="stats-icon">
@@ -34,33 +34,51 @@ export default {
 </script>
 
 <style scoped>
-.stats{
+.stats {
     width: 100%;
-    height: auto;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgb(208, 222, 246);
+    background-color: #CBDCEB;
     flex-wrap: wrap;
     padding: 20px;
 }
 
-.stats-icon{
-    align-items: center;
-    font-size: 36px;
-}
-
-.stats-block{
-    height: 170px;
-    width: 150px;
-    border-radius: 10px;
-    margin: 25px;
-    -webkit-box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
-    box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+.stats-block {
+    height: 180px;
+    width: 160px;
+    border-radius: 12px;
+    margin: 20px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: #fff;
+    background-color: #FFFFFF;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.stats-block:hover {
+    transform: translateY(-8px);
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.stats-icon {
+    color: #133E87;
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+.stats-title {
+    font-size: 16px;
+    color: #333;
+    font-weight: bold;
+    margin: 5px 0;
+}
+
+.stats-count {
+    font-size: 24px;
+    color: #608BC1;
+    font-weight: bold;
 }
 </style>

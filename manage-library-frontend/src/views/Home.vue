@@ -5,9 +5,7 @@
     <Stats />
     <RecentAddedBooks />
     <PopularBooks />
-    <ReservedBooks />
-    <News />
-    <PhotoGallery />
+    <ReservedBooks />     
     <Footer />
   </div>
 </template>
@@ -36,5 +34,5 @@ export default {
 </script>
 
 <style scoped>
-/* Thêm CSS nếu cần */
+
 </style>

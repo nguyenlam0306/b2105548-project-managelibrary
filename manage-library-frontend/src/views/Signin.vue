@@ -59,7 +59,7 @@
 import { ref, reactive } from "vue";
 import { useAuthStore } from "../stores/auth.store";
 const authStore = useAuthStore();
-const isStudent = ref(true);
+const isStudent = ref(false);
 const admissionId = ref("");
 const employeeId = ref("");
 const password = ref("")

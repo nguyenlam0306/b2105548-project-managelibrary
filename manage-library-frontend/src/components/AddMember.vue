@@ -56,10 +56,10 @@
     <table class="admindashboard-table">
       <thead>
         <tr>
-        <th>S.No</th>
-        <th>Member Type</th>
-        <th>Member ID</th>
-        <th>Member Name</th>
+        <th>STT</th>
+        <th>Chức vụ</th>
+        <th>Mã thành viên</th>
+        <th>Tên thành viên</th>
       </tr>
       </thead>
       <tbody>
@@ -76,7 +76,7 @@
 
 <script>
 import axios from 'axios';
-import DatePicker from 'vue-datepicker';
+import DatePicker from 'vue-datepicker-next';
 import VSelect from 'vue-select';
 
 export default {

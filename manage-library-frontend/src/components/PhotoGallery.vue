@@ -2,7 +2,7 @@
   <div class="photogallery-container">
     <h1 class="photogallery-title">Người nổi tiếng ghé thăm</h1>
     <div class="photogallery-images">
-      <img src="/public/images/Demen.jpg" alt="Sách Demen" />
+      <img src="https://images.pexels.com/photos/2386687/pexels-photo-2386687.jpeg" alt="" />
       <img src="https://images.pexels.com/photos/3094218/pexels-photo-3094218.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Sách 1" />
       <img src="https://images.pexels.com/photos/3253724/pexels-photo-3253724.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Sách 2" />
       <img src="https://images.pexels.com/photos/949274/pexels-photo-949274.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Sách 3" />
@@ -46,7 +46,7 @@ export default {
 .photogallery-images img {
   width: 100%;
   max-width: 400px;
-  max-height: 300px;
+  max-height: 400px;
   display: block;
   border-radius: 5px;
   transition: all 100ms ease-out;
