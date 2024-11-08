@@ -13,6 +13,7 @@ import UpdateBook from "@/components/UpdateBook.vue";
 import AllTransactions from "@/components/AllTransactions.vue";
 import AddTransaction from "@/components/AddTransaction.vue";
 import ShowLibrary from "@/views/ShowLibrary.vue";
+import Books from "@/views/Books.vue";
 
 const routes = [
   { path: "/", name: "Home", component: () => import("../views/Home.vue") },
@@ -33,6 +34,7 @@ const routes = [
       {
         path: "/books",
         name: "Sách",
+        components: Books,
         children: [
           {
             path: "/books/all",

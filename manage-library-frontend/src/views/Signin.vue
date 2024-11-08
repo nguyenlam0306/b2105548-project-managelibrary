@@ -10,10 +10,7 @@
             <input type="checkbox" v-model="isStudent" id="isStudent" />
             <label for="isStudent" class="m-2"> Sinh viên</label>
           </p>
-        </div>
-        <div class="error-message">
-          <p>{{ error }}</p>
-        </div>
+        </div>       
         <div class="signin-fields">
           <label :for="isStudent ? 'admissionId' : 'employeeId'"
             ><b>{{ isStudent ? "Mã sinh viên" : "Mã nhân viên" }}</b></label
@@ -21,9 +18,7 @@
           <input
             class="signin-textbox"
             type="text"
-            :placeholder="
-              isStudent ? 'Enter Student ID' : 'Enter Staff ID'
-            "
+            :placeholder="isStudent ? 'Enter Student ID' : 'Enter Staff ID'"
             :name="isStudent ? 'admissionId' : 'employeeId'"
             required
             @input="
@@ -56,31 +51,46 @@
 </template>
 
 <script setup>
-import { ref, reactive } from "vue";
+import Swal from 'sweetalert2';
+import { ref } from "vue";
 import { useAuthStore } from "../stores/auth.store";
+
 const authStore = useAuthStore();
 const isStudent = ref(false);
 const admissionId = ref("");
 const employeeId = ref("");
-const password = ref("")
+const password = ref("");
 const error = ref("");
 
 async function handleForm() {
-    try {
-            const result = await authStore.login({
-    ...(isStudent.value ? { admissionId: admissionId.value } : { employeeId: employeeId.value }),
-    password: password.value
-});
-        error.admissionId = null
-        error.employeeId = null
-        error.password = null
-        error.value = "";
-    } catch (err) {     
-        // error.admissionId = err.response.data.error.admissionId;
-        // error.employeeId = err.response.data.error.employeeId;
-        error.value = "Sai tên đăng nhập hoặc mật khẩu";
-    }
+  try {
+    const result = await authStore.login({
+      ...(isStudent.value
+        ? { admissionId: admissionId.value }
+        : { employeeId: employeeId.value }),
+      password: password.value,
+    });
+
+    // Nếu đăng nhập thành công
+    Swal.fire({
+      icon: 'success',
+      title: 'Đăng nhập thành công!',
+      text: 'Chào mừng bạn trở lại!',
+      timer: 2000,
+      showConfirmButton: false,
+    });
+    error.value = "";
+  } catch (err) {
+    // Nếu có lỗi, hiển thị thông báo lỗi
+    Swal.fire({
+      icon: 'error',
+      title: 'Đăng nhập thất bại',
+      text: 'Sai tên đăng nhập hoặc mật khẩu',
+    });
+    error.value = "Sai tên đăng nhập hoặc mật khẩu";
+  }
 }
+
 </script>
 
 <style scoped>
