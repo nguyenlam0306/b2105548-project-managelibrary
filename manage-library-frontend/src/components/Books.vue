@@ -1,37 +1,71 @@
 <script setup>
-import { ref } from "vue"
-import { RouterView, RouterLink } from "vue-router";
+import { ref } from "vue";
+import { RouterLink, RouterView } from "vue-router";
 
-const tab = ref("AllBooks")
-
+const tab = ref("AllBooks");
 </script>
 
 <template>
-    <div class="btn-group">
-        <router-link to="/books/all" class="btn btn-primary" :class="tab == 'AllBooks' ? 'active' : ''"
-            @click="tab = 'AllBooks'">Kho sách
-            products</router-link>
-        <router-link to="/books/add" class="btn btn-primary" :class="tab == 'AddBook' ? 'active' : ''"
-            @click="tab = 'AddBook'">Thêm sách
-            product</router-link>
-    </div>
-    <div>
-        <Suspense>
-            <template #default> <router-view></router-view></template>
-            <template #fallback>
-                Loadding ...
-            </template>
-        </Suspense>
-    </div>
+  <div class="btn-group ml-3 p-1" role="group">
+    <!-- Nút Kho sách -->
+    <router-link
+      to="/books/all"
+      class="btn custom-btn"
+      :class="{ active: tab === 'AllBooks' }"
+      @click="tab = 'AllBooks'"
+    >
+      Kho sách
+    </router-link>
+    
+    <!-- Nút Thêm sách -->
+    <router-link
+      to="/books/addbook"
+      class="btn custom-btn"
+      :class="{ active: tab === 'AddBook' }"
+      @click="tab = 'AddBook'"
+    >
+      Thêm sách
+    </router-link>
+  </div>
+
+  <div>
+    <Suspense>
+      <template #default>
+        <router-view />
+      </template>
+      <template #fallback>
+        Loading ...
+      </template>
+    </Suspense>
+  </div>
 </template>
 
 <style scoped>
-.btn-primary {
-    background-color: #006f3c;
-    border-color: #006f3c;
+.btn-group {
+  margin-top: 60px;
+  margin-left: 26px;
 }
 
-.btn.active {
-    background-color: #03914e;
+.custom-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #09308a;
+  color: white;
+  border: none;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.custom-btn:hover {
+  background-color: #2a4c9b;
+}
+
+.custom-btn.active {
+  background-color: #c8e8f4;
+  transform: translateY(-2px);
+}
+
+.custom-btn:focus {
+  box-shadow: none;
 }
 </style>

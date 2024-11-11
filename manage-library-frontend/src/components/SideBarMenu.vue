@@ -5,6 +5,7 @@ const authStore = useAuthStore();
 
 const logout = () => {
   localStorage.removeItem("user");
+  localStorage.removeItem("isAdmin");
   window.location.reload();
 };
 

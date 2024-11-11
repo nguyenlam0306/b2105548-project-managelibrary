@@ -1,47 +1,43 @@
-// src/services/BookService.js
-import createAxiosInstance from "./api.service";
+import axios from "axios";
+import { useAuthStore } from "../stores/auth.store";
 
-const API_URL = import.meta.env.VUE_APP_API_URL;
-const axiosInstance = createAxiosInstance(API_URL);
+const baseURL = "http://localhost:4000/api/books";
+class BookService {
+ 
 
-export const fetchCategories = async () => {
-  try {
-    const response = await axiosInstance.get("api/categories/all");
-    return response.data.map((category) => ({
-      value: category._id,
-      label: category.categoryName,
-    }));
-  } catch (err) {
-    console.error(err);
+  async addBook(book) {
+    const authStore = useAuthStore();   
+    return (
+      await axios.post(`${baseURL}/add`, book, {
+        headers: {
+          "Content-Type": "multipart/form-data",         
+        },
+      })
+    ).data;
   }
-};
 
-export const fetchPublishers = async () => {
-  try {
-    const response = await axiosInstance.get("api/publishers/all");
-    return response.data.map((publisher) => ({
-      value: publisher._id,
-      label: publisher.publisherName,
-    }));
-  } catch (err) {
-    console.error(err);
+  async getAllBooks() {
+    return (await axios.get(`${baseURL}/all`)).data;
   }
-};
 
-export const addBook = async (BookData) => {
-  try {
-    const response = await axiosInstance.post("api/books/add", BookData);
-    return response.data;
-  } catch (err) {
-    console.error(err);
+  async getBook(bookId) {
+    return (await axios.get(baseURL + "/" + bookId)).data;
   }
-};
 
-export const fetchRecentBooks = async () => {
-  try {
-    const response = await axiosInstance.get("api/books/all");
-    return response.data.slice(0, 5);
-  } catch (err) {
-    console.error(err);
+  async deleteBook(bookId) {
+    return await axios.delete(`${baseURL}/delete/${bookId}`);
   }
-};
+
+  async updateBook(bookId, book) {
+    // console.log(product);
+    return (
+      await axios.put(baseURL + "/" + bookId, book, {
+        headers: {
+          "Content-Type": "multipart/form-data",         
+        },
+      })
+    ).data;
+  }
+}
+
+export default  BookService

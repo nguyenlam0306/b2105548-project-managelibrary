@@ -20,6 +20,8 @@ class authService {
       : await User.findOne({ employeeId });
 
     if (!user) throw new Error("User not found");
+// console.log(password)
+// console.log(user.password)
 
     const isValidPassword = await bcrypt.compare(password, user.password);
     if (!isValidPassword) throw new Error("Wrong password");

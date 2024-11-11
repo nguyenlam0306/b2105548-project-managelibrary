@@ -5,7 +5,14 @@ import axios from "axios";
 const authURL  = "http://localhost:4000/api/auth";
 class AuthService {
   async login(user) {
-    return (await axios.post(`${authURL}/signin`, user)).data;
+
+
+   const response = (await axios.post(`${authURL}/signin`, user));
+
+    // Lưu token và isAdmin vào localStorage
+
+    localStorage.setItem('isAdmin', response.data.isAdmin);
+  return response.data;
   }
   async register(user) {
     return (await axios.post(`${authURL}/register`, user)).data;

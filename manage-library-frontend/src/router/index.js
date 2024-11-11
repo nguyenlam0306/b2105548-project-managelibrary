@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-import AllBooks from "@/views/ShowLibrary.vue";
+import AllBooks from "@/components/AllBooks.vue";
 import About from "@/views/About.vue";
 import { nextTick } from "vue";
 
@@ -13,7 +13,7 @@ import UpdateBook from "@/components/UpdateBook.vue";
 import AllTransactions from "@/components/AllTransactions.vue";
 import AddTransaction from "@/components/AddTransaction.vue";
 import ShowLibrary from "@/views/ShowLibrary.vue";
-import Books from "@/views/Books.vue";
+import Books from "@/components/Books.vue";
 
 const routes = [
   { path: "/", name: "Home", component: () => import("../views/Home.vue") },
@@ -34,15 +34,15 @@ const routes = [
       {
         path: "/books",
         name: "Sách",
-        components: Books,
+        component: Books,
         children: [
           {
             path: "/books/all",
-            name: "All books",
+            name: "List Sách",
             component: AllBooks,
           },
           {
-            path: "/books/add",
+            path: "/books/addbook",
             name: "Add Book",
             component: AddBook,
           },
