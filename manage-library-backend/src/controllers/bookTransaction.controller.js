@@ -2,10 +2,7 @@ import bookTransactionService from "../services/bookTransaction.service.js";
 
 class BookTransactionController {
   static async addTransaction(req, res) {
-    try {
-      if (!req.body.isAdmin)
-        return res.status(403).json("Bạn không có quyền thêm giao dịch");
-
+    try {     
       const transaction = await bookTransactionService.addTransaction(req.body);
       res.status(200).json(transaction);
     } catch (err) {
@@ -23,8 +20,7 @@ class BookTransactionController {
   }
 
  static async updateTransaction(req, res) {
-    try {
-      if (!req.body.isAdmin) return res.status(403).json("Quyền bị từ chối.");
+    try {   
 
       const updatedTransaction = await bookTransactionService.updateTransaction(
         req.params.id,
@@ -37,18 +33,30 @@ class BookTransactionController {
   }
 
   static async deleteTransaction(req, res) {
-    try {
-      if (!req.body.isAdmin)
-        return res
-          .status(403)
-          .json("You don't have permission to delete a transaction!");
-
+    try {     
       await bookTransactionService.deleteTransaction(req.params.id);
       res.status(200).json("Transaction deleted successfully");
     } catch (err) {
       res.status(504).json(err);
     }
   }
+
+  static async updateTransactionStatus(req, res) {
+    const transactionId = req.body.transactionId
+    const followingStatus = req.body.transactionStatus
+    const borrowerId = req.borrowerId
+    try {
+        const result = await bookTransactionService.updateOrderStatus(
+          transactionId,
+          followingStatus,
+          borrowerId
+        );
+        res.status(200).json(result)
+    } catch (err) {
+        console.log(err);
+        res.sendStatus(500)
+    }
+}
 }
 
 export default BookTransactionController;

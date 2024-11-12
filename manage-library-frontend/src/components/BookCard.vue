@@ -1,7 +1,7 @@
 <script setup>
 import { RouterLink } from "vue-router";
 import { ref, defineProps, computed, defineEmits } from "vue";
-import axios from 'axios';
+// import axios from 'axios';
 import Swal from 'sweetalert2';
 
 const props = defineProps([
@@ -44,8 +44,8 @@ const handleDeleteBook = async () => {
   // Nếu người dùng xác nhận, thực hiện yêu cầu xóa
   if (result.isConfirmed) {
     try {
-      const response = await emits('deleteBook', props.bookId);
-      
+      const res = await emits('deleteBook', props.bookId);
+      console.log(res);
         Swal.fire('Đã xóa!', 'Sách đã được xóa thành công.', 'success');
         window.location.reload(); // Hoặc emit sự kiện để cập nhật danh sách sách
        } 

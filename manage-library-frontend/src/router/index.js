@@ -10,8 +10,7 @@ import AddBook from "@/components/AddBook.vue";
 import RecentAddedBooks from "@/components/RecentAddedBooks.vue";
 import Profile from "@/components/Profile.vue";
 import UpdateBook from "@/components/UpdateBook.vue";
-import AllTransactions from "@/components/AllTransactions.vue";
-import AddTransaction from "@/components/AddTransaction.vue";
+import Transactions from "@/components/Transactions.vue";
 import ShowLibrary from "@/views/ShowLibrary.vue";
 import Books from "@/components/Books.vue";
 
@@ -56,18 +55,7 @@ const routes = [
       {
         path: "/transactions",
         name: "Giao dịch",
-        children: [
-          {
-            path: "/transactions/all",
-            name: "All transactions",
-            component: AllTransactions,
-          },
-          {
-            path: "/transactions/add",
-            name: "Add Transaction",
-            component: AddTransaction,
-          },         
-        ],
+        component: Transactions,          
       },
     ],
   },

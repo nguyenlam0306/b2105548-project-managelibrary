@@ -20,5 +20,6 @@ router.delete(
   "/delete/:id",
   BookTransactionController.deleteTransaction
 );
+router.put("/updateStatus", BookTransactionController.updateTransactionStatus);
 
 export default router;

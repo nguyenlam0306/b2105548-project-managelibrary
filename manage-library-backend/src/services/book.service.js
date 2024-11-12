@@ -1,6 +1,7 @@
 import Book from "../models/book.model.js"; 
 import BookCategory from "../models/bookCategory.model.js";
 import Publisher from "../models/publisher.model.js"
+//  const ObjectId = require("mongoose").Types.ObjectId;
 class BookService {
   async getAllBooks() {
     return await Book.find({}).populate("transactions").sort({ _id: -1 });
@@ -30,12 +31,18 @@ class BookService {
       categories: bookData.categories,
     });
     const savedBook = await newBook.save();
-    await BookCategory.updateMany(
-      { _id: savedBook.categories },
-      { $push: { books: savedBook._id } }
+    await BookCategory.findOneAndUpdate(
+      {
+        _id: bookData.categories,
+      },
+      {
+        $push: { books: savedBook._id },
+      }
     );
-    await Publisher.updateOne(
-      { _id: savedBook.publisher },
+    await Publisher.findOneAndUpdate(
+      {
+        _id: bookData.publisher,
+      },
       { $push: { books: savedBook._id } }
     );
     return savedBook;
