@@ -10,6 +10,7 @@ router.get(
   "/all",
   bookCategoryController.getAllCategories.bind(bookCategoryController)
 );
+router.get("/:id", bookCategoryController.getCategoryById);
 router.post(
   "/add",
   bookCategoryController.addCategory.bind(bookCategoryController)

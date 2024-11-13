@@ -1,3 +1,37 @@
+<script setup>
+import { ref, onMounted } from 'vue';
+import AuthService from '@/services/auth.service';
+import { useRouter } from 'vue-router';
+import Swal from 'sweetalert2';
+
+const router = useRouter();
+const menutoggle = ref(false);
+const user = ref(null);
+
+function Toggle() {
+  menutoggle.value = !menutoggle.value;
+}
+
+function closeMenu() {
+  menutoggle.value = false;
+}
+
+function getUser() {
+  user.value = AuthService.getCurrentUser();
+}
+
+function handleLogout() {
+  AuthService.logout();
+  user.value = null;
+  Swal.fire('Đăng xuất thành công!', '', 'success');
+  router.push('/signin');
+}
+
+onMounted(() => {
+  getUser();
+});
+</script>
+
 <template>
   <div class="header">
     <div class="logo-nav">
@@ -24,10 +58,12 @@
             <a href="#about">About</a>
           </router-link>
         </li>
-        <li class="option" @click="closeMenu">
-          <router-link to="/signin">
-            <a href="#signin"><i class="fa-solid fa-user"></i></a>
-          </router-link>
+        <!-- Kiểm tra nếu người dùng đã đăng nhập -->
+        <li v-if="user" class="option" @click="closeMenu">          
+           <router-link to="/dashboard@admin"><i class="fa-solid fa-house"></i></router-link>         
+        </li>
+        <li v-else class="option" @click="closeMenu">
+          <router-link to="/signin"><i class="fa-solid fa-user"></i></router-link>
         </li>
       </ul>
     </div>
@@ -39,24 +75,7 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: "Header",
-  data() {
-    return {
-      menutoggle: false,
-    };
-  },
-  methods: {
-    Toggle() {
-      this.menutoggle = !this.menutoggle;
-    },
-    closeMenu() {
-      this.menutoggle = false;
-    },
-  },
-};
-</script>
+
 
 <style scoped>
 /*Desktop View*/

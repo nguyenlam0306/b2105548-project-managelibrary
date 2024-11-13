@@ -1,148 +1,168 @@
 <script setup>
 import Swal from 'sweetalert2';
-import { ref, reactive, computed, watch } from "vue"
-import BookService from "../services/book.service"
+import { ref, reactive, watch } from "vue";
+import BookService from "../services/book.service";
+import CategoryService from "@/services/category.service";
+import PublisherService from '@/services/publisher.service';
 
-const bookService = new BookService()
+const bookService = new BookService();
+const categoryService = new CategoryService();
+const publisherService = new PublisherService();
 
-const state = ref(null)
-
-watch(state, (newState) => {
-    setTimeout(() => {
-        state.value = null
-    }, 5000)
-})
-const isLoading = ref(false)
+const categoriesList = ref([]);
+const publishersList = ref([]);
+const state = ref(null);
+const isLoading = ref(false);
 const error = ref("");
 
-const book = reactive({
-    title: null,
-    bookID: null,
-    price: null,
-    author: null,
-    quantity: null,
-    publisher: null,
-    publicationYear: null,
-    categories: null,
-})
-async function onSubmit() {
-    isLoading.value = true
+// Fetch danh mục và nhà xuất bản
+async function fetchData() {
     try {
-        const result = await bookService.addBook(book)
-        console.log(result);
-        if (result) {
-            book.title = null
-            book.bookID = null,
-                book.price = null,
-                book.quantity = null,
-                book.categories = null,
-                book.publicationYear = null,
-                book.publisher = null,
-                state.value = true
-        }
-        // Nếu thêm thành công
-        Swal.fire({
-            icon: 'success',
-            title: 'Thêm sách thành công!',
-            text: 'Hãy xem lại danh sách!',
-            timer: 2000,
-            showConfirmButton: false,
-        });
-        error.value = ""
+        const [categories, publishers] = await Promise.all([
+            categoryService.getAllCategories(),
+            publisherService.getAllPublishers(),
+        ]);
+        categoriesList.value = categories;
+        publishersList.value = publishers;
     } catch (err) {
-        state.value = false
+        console.error("Lỗi khi lấy dữ liệu:", err);
+    }
+}
+fetchData();
+
+// Định nghĩa reactive cho form sách
+const book = reactive({
+    title: "",
+    bookID: "",
+    price: "",
+    quantity: 0,
+    publicationYear: "",
+    publisher: null,
+    author: "",
+    categories: [],
+    bookStatus: "Available",
+});
+
+// Xử lý thêm sách
+async function onSubmit() {
+    console.log("Dữ liệu trước khi gửi:", book);
+    isLoading.value = true;
+
+    try {
+        const result = await bookService.addBook({ ...book });
+        if (result) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Thêm sách thành công!',
+                text: 'Hãy xem lại danh sách!',
+                timer: 2000,
+                showConfirmButton: false,
+            });
+        }
+    } catch (err) {
+        console.error("Lỗi khi thêm sách:", err);
         Swal.fire({
             icon: 'error',
             title: 'Thêm sách thất bại',
-            text: 'Không hợp lệ thông tin sách',
+            text: 'Vui lòng kiểm tra lại thông tin!',
         });
+    } finally {
+        isLoading.value = false;
     }
-    isLoading.value = false
-    error.value = "Thông tin sách không hợp lệ hoặc thiếu"
 }
 
+watch(state, (newState) => {
+    if (newState !== null) {
+        setTimeout(() => {
+            state.value = null;
+        }, 3000);
+    }
+});
 </script>
 
 <template>
-    <div class="row justify-content-center mt-3">
-        <div class="col-md-6">
-            <form @submit.prevent="onSubmit" class="w-75 container" enctype="multipart/form-data">
-                <div class="row mb-3">
+    <div class="container mt-5">
+        <div class="card p-4 shadow-lg">
+            <h3 class="text-center mb-4">Thêm sách mới</h3>
+            <form @submit.prevent="onSubmit" enctype="multipart/form-data">
+                <!-- Tên sách -->
+                <div class="mb-3">
                     <label for="title" class="form-label">Tên sách</label>
                     <input type="text" class="form-control" id="title" v-model="book.title" required>
                 </div>
-                <div class="row mb-3">
-                    <label for="bookID" class="form-label">Mã sách</label>
-                    <input type="text" class="form-control" id="bookID" v-model="book.bookID" required>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-7  ps-0">
-                        <label for="bookPrice" class="form-label ps-3">Giá</label>
-                        <input type="text" class="form-control" id="bookPrice" v-model="book.price" required>
-                        <div class="error" v-if="error.price">{{ error.price }}</div>
+
+                <!-- Mã sách & Giá -->
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="bookID" class="form-label">Mã sách</label>
+                        <input type="text" class="form-control" id="bookID" v-model="book.bookID" required>
                     </div>
-                    <div class="col-5  ps-0">
-                        <label for="publisher">Thể loại</label>
-                        <select v-model="book.categories" class="form-select">
-                            <option v-for="category in categoriesList" :key="category._id" :value="category._id">
-                                {{ category.categoryName }}
-                            </option>
-                        </select>
+                    <div class="col-md-6 mb-3">
+                        <label for="price" class="form-label">Giá</label>
+                        <input type="number" class="form-control" id="price" v-model="book.price" required>
                     </div>
                 </div>
-                <div class="row mb-3">
-                    <label for="author">Tên tác giả</label>
-                    <input type="text" id="author" class="form-control" required v-model="book.author"></input>
-                    <div class="error" v-if="error.author">{{ error.author }}</div>
+
+                <!-- Tác giả & Thể loại -->
+                <div class="mb-3">
+                    <label for="author" class="form-label">Tên tác giả</label>
+                    <input type="text" class="form-control" id="author" v-model="book.author" required>
                 </div>
-                <div class="row mb-3">
-                    <label for="publisher">Nhà xuất bản</label>
-                    <select v-model="book.publisher" class="form-select">
-                        <option v-for="publisher in publishersList" :key="publisher._id" :value="publisher._id">
-                            {{ publisher.publisherName }}
+                <div class="mb-3">
+                    <label for="categories" class="form-label">Thể loại</label>
+                    <select v-model="book.categories" class="form-select">
+                        <option v-for="category in categoriesList" :key="category._id" :value="category._id">
+                            {{ category.categoryName }}
                         </option>
                     </select>
                 </div>
-                <div class="mb-3">
-                    <div class="row mb-3">
-                        <div class="col-7  ps-0">
-                            <label for="quantity" class="form-label">Số lượng</label>
-                            <input type="number" class="form-control" id="quantity" v-model="book.quantity" required>
-                        </div>
-                        <div class="col-5  pe-0">
-                            <label for="publicationYear ps-3" class="form-label">Năm xuất bản</label>
-                            <input type="text" class="form-control" id="publicationYear" v-model="book.publicationYear"
-                                required>
 
-                        </div>
+                <!-- Nhà xuất bản & Năm xuất bản -->
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="publisher" class="form-label">Nhà xuất bản</label>
+                        <select v-model="book.publisher" class="form-select">
+                            <option v-for="publisher in publishersList" :key="publisher._id" :value="publisher._id">
+                                {{ publisher.publisherName }}
+                            </option>
+                        </select>
                     </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="publicationYear" class="form-label">Năm xuất bản</label>
+                        <input type="number" class="form-control" id="publicationYear" v-model="book.publicationYear" required>
+                    </div>
+                </div>
 
+                <!-- Số lượng -->
+                <div class="mb-3">
+                    <label for="quantity" class="form-label">Số lượng</label>
+                    <input type="number" class="form-control" id="quantity" v-model="book.quantity" required>
                 </div>
-                <button type="submit" class="row btn btn-primary">Submit</button>
-                <div class="spinner-border text-success ms-5" role="status" v-if="loading">
-                    <span class="visually-hidden">Loading...</span>
-                </div>
-                <span class="message alert alert-primary" :class="state ? 'alert-success' : 'alert-danger'"
-                    v-if="state !== null">{{ state ? "Thành công" : "Thất Bại"
-                    }}</span>
+
+                <!-- Nút gửi và loading spinner -->
+                <button type="submit" class="btn btn-primary w-100" :disabled="isLoading">
+                    <span v-if="!isLoading">Thêm sách</span>
+                    <span v-else>
+                        <div class="spinner-border spinner-border-sm" role="status"></div> Đang xử lý...
+                    </span>
+                </button>
             </form>
         </div>
-
     </div>
 </template>
 
 <style scoped>
 .btn.btn-primary {
-    background-color: #006f3c;
-    border-color: #006f3c;
+    background-color: #153b77;
+    border-color: #153b77;
 }
 
-.error {
-    color: red;
-    font-style: italic;
+.card {
+    border-radius: 15px;
+    border: none;
 }
 
-.message {
-    margin-left: 50px;
+.spinner-border {
+    color: #ffffff;
 }
 </style>

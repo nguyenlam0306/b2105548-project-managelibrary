@@ -2,10 +2,12 @@
 import { useAuthStore } from "../stores/auth.store";
 import { RouterLink } from "vue-router";
 const authStore = useAuthStore();
+import Swal from 'sweetalert2';
 
 const logout = () => {
   localStorage.removeItem("user");
   localStorage.removeItem("isAdmin");
+  Swal.fire('Đăng xuất thành công!', '', 'success');
   window.location.reload();
 };
 

@@ -19,33 +19,31 @@ class BookService {
   }
 
   async addBook(bookData) {
-    const newBook = new Book({
-      title: bookData.title,
-      bookID: bookData.bookID,
-      price: bookData.price,
-      quantity: bookData.quantity,
-      publicationYear: bookData.publicationYear,
-      publisher: bookData.publisher,
-      author: bookData.author,
-      bookStatus: bookData.bookStatus || "Available", // Giá trị mặc định nếu không được cung cấp
-      categories: bookData.categories,
-    });
-    const savedBook = await newBook.save();
-    await BookCategory.findOneAndUpdate(
-      {
-        _id: bookData.categories,
-      },
-      {
-        $push: { books: savedBook._id },
+    console.log(bookData)
+    try {
+      // Tạo một instance của Book từ bookData
+      const newBook = new Book(bookData);
+
+      // Lưu vào MongoDB
+      const savedBook = await newBook.save();
+
+      // Cập nhật danh sách sách cho Category và Publisher
+      if (bookData.categories) {
+        await BookCategory.findByIdAndUpdate(bookData.categories, {
+          $push: { books: savedBook._id },
+        });
       }
-    );
-    await Publisher.findOneAndUpdate(
-      {
-        _id: bookData.publisher,
-      },
-      { $push: { books: savedBook._id } }
-    );
-    return savedBook;
+
+      if (bookData.publisher) {
+        await Publisher.findByIdAndUpdate(bookData.publisher, {
+          $push: { books: savedBook._id },
+        });
+      }
+
+      return savedBook;
+    } catch (error) {
+      throw new Error("Error saving book: " + error.message);
+    }
   }
 
   async updateBook(id, updateData) {

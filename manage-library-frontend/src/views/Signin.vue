@@ -78,7 +78,7 @@ async function handleForm() {
       text: 'Chào mừng bạn trở lại!',
       timer: 2000,
       showConfirmButton: false,
-    });
+    });     
     error.value = "";
   } catch (err) {
     // Nếu có lỗi, hiển thị thông báo lỗi

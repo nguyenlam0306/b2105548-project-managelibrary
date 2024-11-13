@@ -10,8 +10,7 @@ class BookService {
     return (
       await axios.post(`${baseURL}/add`, book, {
         headers: {
-          "Content-Type": "multipart/form-data",
-          Accept: "application/json",
+          "Content-Type": "application/json"         
         },
       })
     ).data;

@@ -6,7 +6,7 @@ import Swal from 'sweetalert2';
 
 const props = defineProps([
   'bookId', 'bookID', 'title', 'price', 'categories', 'author',
-  'quantity', 'publisher', 'publicationYear', 'bookStatus'
+  'quantity', 'publisherName', 'publicationYear', 'bookStatus'
 ]);
 const emits = defineEmits(['deleteBook']);
 
@@ -75,7 +75,7 @@ const handleDeleteBook = async () => {
           <div><span class="bold">Số lượng:</span> {{ quantity }}</div>
           <div><span class="bold">Giá:</span> {{ formatPrice }} VNĐ</div>
           <div><span class="bold">Tác giả:</span> {{ author }}</div>
-          <div><span class="bold">Nhà xuất bản:</span> {{ publisher }}</div>
+          <div><span class="bold">Nhà xuất bản:</span> {{ publisherName }}</div>
           <div><span class="bold">Năm xuất bản:</span> {{ publicationYear }}</div>
           <div><span class="bold">Tình trạng:</span> {{ bookStatus }}</div>
         </div>

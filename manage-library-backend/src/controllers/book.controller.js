@@ -30,25 +30,59 @@ class BookController {
   }
 
   async addBook(req, res) { 
+try {
+  // Kiểm tra dữ liệu từ frontend
+  const {
+    title,
+    bookID,
+    price,
+    quantity,
+    publicationYear,
+    publisher,
+    author,
+    bookStatus,
+    categories,
+    transactions,
+  } = req.body;
 
-   try {
-   const bookData = {
-     title: req.body.title,
-     bookID: req.body.bookID,
-     price: req.body.price,
-     quantity: req.body.quantity,
-     publicationYear: req.body.publicationYear,
-     publisher: req.body.publisher,
-     author: req.body.author,
-     bookStatus: req.body.bookStatus,
-     categories: req.body.categories,
-     transactions: req.body.transactions,
-   };
-   const book = await BookService.addBook(bookData);
-   res.status(200).json(book);
- } catch (err) {
-   res.status(504).json(err);
- }
+  // Kiểm tra nếu thiếu các trường bắt buộc
+  if (
+    !title ||
+    !bookID ||
+    !price ||
+    !quantity ||
+    !publicationYear ||
+    !publisher ||
+    !author
+  ) {
+    return res.status(400).json({ message: "Missing required fields" });
+  }
+
+  // Tạo object bookData từ req.body
+  const bookData = {
+    title,
+    bookID,
+    price,
+    quantity,
+    publicationYear,
+    publisher,
+    author,
+    bookStatus: bookStatus || "Available",
+    categories,
+    transactions,
+  };
+
+  // Gọi hàm addBook từ BookService để lưu sách
+  const book = await BookService.addBook(bookData);
+
+  // Trả về kết quả
+  return res.status(200).json({ message: "Book added successfully", book });
+} catch (err) {
+  console.error("Error adding book:", err);
+  return res
+    .status(500)
+    .json({ message: "Internal Server Error", error: err.message });
+}
       }
    
   

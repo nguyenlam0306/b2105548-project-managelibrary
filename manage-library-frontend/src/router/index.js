@@ -13,6 +13,7 @@ import UpdateBook from "@/components/UpdateBook.vue";
 import Transactions from "@/components/Transactions.vue";
 import ShowLibrary from "@/views/ShowLibrary.vue";
 import Books from "@/components/Books.vue";
+import Publishers from "@/components/Publishers.vue";
 
 const routes = [
   { path: "/", name: "Home", component: () => import("../views/Home.vue") },
@@ -55,7 +56,12 @@ const routes = [
       {
         path: "/transactions",
         name: "Giao dịch",
-        component: Transactions,          
+        component: Transactions,
+      },
+      {
+        path: "/publishers",
+        name: "Nhà xuất bản",
+        component: Publishers,
       },
     ],
   },
@@ -72,6 +78,11 @@ const routes = [
     path: "/about",
     name: "About",
     component: About,
+  },
+  {
+    path: "/:pathMatch(.*)*",
+    name: "notfound",
+    component: () => import("@/views/NotFound.vue"),
   },
 ];
 
