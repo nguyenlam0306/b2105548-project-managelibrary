@@ -13,8 +13,7 @@ class CategoryService {
     return (
       await axios.post(`${baseURL}/add`, category, {
         headers: {
-          "Content-Type": "multipart/form-data",
-          Accept: "application/json",
+          "Content-Type": "application/json",         
         },
       })
     ).data;

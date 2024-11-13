@@ -102,3 +102,10 @@ watch(transactionStatus, async (value) => {
         </div>
     </div>
 </template>
+
+<style scoped>
+.container{
+    margin-top: 60px!important;
+}
+
+</style>

@@ -29,15 +29,15 @@ class BookService {
   }
 
   async updateBook(bookId, book) {
-    // console.log(product);
+    console.log(book);
     return (
-      await axios.put(baseURL + "/" + bookId, book, {
+      await axios.put(`${baseURL}/update/${bookId}`, book, {
         headers: {
-          "Content-Type": "multipart/form-data",         
+          "Content-Type": "application/json",
         },
       })
     ).data;
   }
 }
 
-export default  BookService
+export default BookService

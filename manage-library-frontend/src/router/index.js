@@ -14,6 +14,7 @@ import Transactions from "@/components/Transactions.vue";
 import ShowLibrary from "@/views/ShowLibrary.vue";
 import Books from "@/components/Books.vue";
 import Publishers from "@/components/Publishers.vue";
+import Category from "@/components/Category.vue";
 
 const routes = [
   { path: "/", name: "Home", component: () => import("../views/Home.vue") },
@@ -62,6 +63,11 @@ const routes = [
         path: "/publishers",
         name: "Nhà xuất bản",
         component: Publishers,
+      },
+      {
+        path: "/categories",
+        name: "Thể loại",
+        component: Category,
       },
     ],
   },

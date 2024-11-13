@@ -3,13 +3,12 @@ import { ref, reactive, onMounted } from "vue";
 import PublisherService from "@/services/publisher.service.js";
 import Swal from "sweetalert2";
 
+const publisherService = new PublisherService();
 
-const publisherService = new PublisherService()
-// Reactive object cho form thêm publisher
 const publisher = reactive({
-    publisherID: "",
+  publisherID: "",
   publisherName: "",
-  address: ""
+  address: "",
 });
 
 const publishersList = ref([]);
@@ -33,6 +32,7 @@ async function onSubmit() {
   try {
     await publisherService.addPublisher(publisher);
     Swal.fire("Thành công", "Nhà xuất bản đã được thêm!", "success");
+    // Reset form
     publisher.publisherID = "";
     publisher.publisherName = "";
     publisher.address = "";
@@ -43,79 +43,120 @@ async function onSubmit() {
   }
 }
 
-// Tải danh sách nhà xuất bản khi trang được mở
 onMounted(fetchPublishers);
 </script>
 
-<template>
-  <div class="container ">
-    <h2 class="mb-4">Quản Lý Nhà Xuất Bản</h2>
 
-    <!-- Form Thêm Nhà Xuất Bản -->
-    <form method="" @submit.prevent="onSubmit" class="mb-4">
-      <div class="mb-3">
-        <label for="publisherID" class="form-label">Mã Nhà xuất bản</label>
-        <input
-          type="text"
-          id="publisherID"
-          v-model="publisher.publisherID"
-          class="form-control"
-          required
-        />
-      </div>
-      
+<template>
+  <div class="container">
+    <div class="card shadow p-4 mb-5">
+      <h2 class="text-center mb-4">Quản Lý Nhà Xuất Bản</h2>
+
+      <!-- Form Thêm Nhà Xuất Bản -->
+      <form @submit.prevent="onSubmit">
         <div class="mb-3">
-        <label for="publisherName" class="form-label">Tên nhà xuất bản</label>
-        <input
-          type="text"
-          id="publisherName"
-          v-model="publisher.publisherName"
-          class="form-control"
-          required
-        />
-      </div>
-      <div class="mb-3">
-        <label for="address" class="form-label">Địa Chỉ</label>
-        <input
-          type="text"
-          id="address"
-          v-model="publisher.address"
-          class="form-control" required
-        />
-      </div>
-      <button type="submit" class="btn btn-primary">Thêm Nhà xuất bản</button>
-    </form>
+          <label for="publisherID" class="form-label">Mã Nhà Xuất Bản</label>
+          <input
+            type="text"
+            id="publisherID"
+            v-model="publisher.publisherID"
+            class="form-control"
+            placeholder="Nhập mã NXB"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="publisherName" class="form-label">Tên Nhà Xuất Bản</label>
+          <input
+            type="text"
+            id="publisherName"
+            v-model="publisher.publisherName"
+            class="form-control"
+            placeholder="Nhập tên NXB"
+            required
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="address" class="form-label">Địa Chỉ</label>
+          <input
+            type="text"
+            id="address"
+            v-model="publisher.address"
+            class="form-control"
+            placeholder="Nhập địa chỉ NXB"
+          />
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100">Thêm Nhà Xuất Bản</button>
+      </form>
+    </div>
 
     <!-- Hiển Thị Danh Sách Nhà Xuất Bản -->
-    <h3>Danh sách Nhà xuất bản</h3>
-    <table class="table table-striped">
-      <thead>
-        <tr>
+    <div class="card shadow p-4">
+      <h3 class="mb-4">Danh Sách Nhà Xuất Bản</h3>
+      <table class="table table-hover table-responsive">
+        <thead>
+          <tr>
             <th>Mã NXB</th>
-          <th>Tên NXB</th>
-          <th>Địa Chỉ</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="publisher in publishersList" :key="publisher._id">
-             <td>{{ publisher.publisherID }}</td>
-          <td>{{ publisher.publisherName }}</td>
-          <td>{{ publisher.address || "N/A" }}</td>
-        </tr>
-      </tbody>
-    </table>
+            <th>Tên NXB</th>
+            <th>Địa Chỉ</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="publisher in publishersList" :key="publisher._id">
+            <td>{{ publisher.publisherID }}</td>
+            <td>{{ publisher.publisherName }}</td>
+            <td>{{ publisher.address || "N/A" }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
 
 
 
+
 <style scoped>
 .container {
-  max-width: 600px;
-  margin-top: 59px;
+  max-width: 800px;
+  margin: auto;
+  margin-top: 50px;
+  padding: 20px;
+}
+
+.card {
+  border-radius: 12px;
+  margin-bottom: 30px;
+}
+
+h2 {
+  color: #153b77;
+}
+
+.btn-primary {
+  background-color: #133e87;
+  border-color: #133e87;
+}
+
+.btn-primary:hover {
+  background-color: #1050a1;
+  border-color: #1050a1;
 }
 
 .table {
   margin-top: 20px;
 }
+
+.table-hover tbody tr:hover {
+  background-color: #f3f3e0;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 15px;
+  }
+}
 </style>
+
