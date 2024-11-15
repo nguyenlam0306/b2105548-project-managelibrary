@@ -4,6 +4,7 @@ import { Toaster, toast } from "vue-sonner"
 import Swal from 'sweetalert2';
 import { useSocketStore } from "../stores/socket.store";
 import transactionService from "@/services/transaction.service";
+import TransactionCard from "./TransactionCard.vue";
 // service
 // card 
 const socketStore = useSocketStore()
@@ -20,7 +21,7 @@ socketStore.io.on('updateStatus', async () => {
     await fetchTransaction()
 })
 const allTransactions = ref()
-const transactionStatus = ref('all')
+const transactionStatus = ref('Active')
 
 async function fetchTransaction() {
     renderComponent.value = false
@@ -43,7 +44,7 @@ let allTransactionsFilted = allTransactions.value
 watch(allTransactions, async (value) => {
     renderComponent.value = false
     await nextTick()
-    if (transactionStatus.value == 'all') {
+    if (transactionStatus.value == 'Active') {
         allTransactionsFilted = allTransactions.value
     } else {
         allTransactionsFilted = allTransactions.value.filter((transaction) => transaction.transactionStatus == transactionStatus.value)
@@ -54,7 +55,7 @@ watch(allTransactions, async (value) => {
 watch(transactionStatus, async (value) => {
     renderComponent.value = false
     await nextTick()
-    if (value == 'all') {
+    if (value == 'Active') {
         allTransactionsFilted = allTransactions.value
     } else {
         allTransactionsFilted = allTransactions.value.filter((transaction) => transaction.transactionStatus == value)
@@ -74,7 +75,7 @@ watch(transactionStatus, async (value) => {
         <div class="row my-4">
             <div class="col-4">
                 <select v-model="transactionStatus" class="form-select" aria-label="Default select example">
-                    <option value="all">Chọn trạng thái giao dịch</option>
+                    <option value="Active">Chọn trạng thái giao dịch</option>
                     <option value="processing">Đang xử lý</option>
                     <option value="accepted">Đã tiếp nhận</option>                    
                 </select>
@@ -87,11 +88,11 @@ watch(transactionStatus, async (value) => {
                         <th scope="col">#</th>
                         <th scope="col">Người mượn</th>
                         <th scope="col">Nhân viên</th>
-                        <th scope="col">Tên sách</th>
-                        <th scope="col">Số lượng</th>
-                        <th scope="col">Tổng tiền</th>
+                        <th scope="col">Tên sách</th>                        
+                        <th scope="col">Giá tiền</th>
                         <th scope="col">Trạng thái</th>
                         <th scope="col">Thời gian mượn</th>
+                        <th scope="col">Thời gian trả</th>
                         <th scope="col">Cập nhật lúc</th>
                     </tr>
                 </thead>

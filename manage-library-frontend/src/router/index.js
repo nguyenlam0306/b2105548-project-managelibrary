@@ -7,7 +7,6 @@ import AdminDashboard from "../views/Dashboard/AdminDashboard.vue";
 // import MemberDashboard from "@/views/Dashboard/MemberDashboard.vue";
 import { useAuthStore } from "@/stores/auth.store.js";
 import AddBook from "@/components/AddBook.vue";
-import RecentAddedBooks from "@/components/RecentAddedBooks.vue";
 import Profile from "@/components/Profile.vue";
 import UpdateBook from "@/components/UpdateBook.vue";
 import Transactions from "@/components/Transactions.vue";

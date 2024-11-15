@@ -9,8 +9,7 @@ class TransactionService {
     const authStore = useAuthStore();
     return await axios.post(baseURL, transactionDetail, {
       headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
+        "Content-Type": "application/json",       
       },
     });
   }
