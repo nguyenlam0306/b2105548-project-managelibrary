@@ -17,6 +17,9 @@ import AddTransaction from "@/components/AddTransaction.vue"
 import Users from "@/components/Users.vue"
 import ListUsers from "@/components/ListUsers.vue";
 import AddUser from "@/components/AddUser.vue";
+import EditUser from "@/components/EditUser.vue";
+// import { component } from "vue/types/umd";
+import ListReaders from "@/components/ListReaders.vue";
 
 const routes = [
   { path: "/", name: "Home", component: () => import("../views/Home.vue") },
@@ -92,6 +95,16 @@ const routes = [
             path: "/users/add",
             name: "Thêm users",
             component: AddUser,
+          },
+          {
+            path: "/users/update/:id",
+            name: "Hiệu chỉnh users",
+            component: EditUser,
+          },
+          {
+            path: "/readers/all",
+            name: "Độc giả",
+            component: ListReaders,
           }
         ]
       }

@@ -1,9 +1,13 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import userService from '../services/user.service';
-import authService from '@/services/auth.service';
+import { useRoute, useRouter } from 'vue-router';
 import Swal from 'sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
+
+const route = useRoute();
+const router = useRouter();
+const userId = route.params.id;
 
 const userForm = ref({
   userType: '',
@@ -16,65 +20,68 @@ const userForm = ref({
   address: '',
   mobileNumber: '',
   email: '',
-  password: '',
   points: 0,
 });
 
+const isLoading = ref(false);
 const isSubmitting = ref(false);
 
-const resetForm = () => {
-  userForm.value = {
-    userType: '',
-    userFullName: '',
-    admissionId: '',
-    employeeId: '',
-    age: null,
-    gender: '',
-    dob: '',
-    address: '',
-    mobileNumber: '',
-    email: '',
-    password: '',
-    points: 0,
-  };
+// Hàm lấy dữ liệu người dùng từ backend
+const fetchUser = async () => {
+  try {
+    isLoading.value = true;
+    const response = await userService.getUserById(userId);
+    userForm.value = response;
+  } catch (error) {
+    console.error('Lỗi khi lấy thông tin người dùng:', error);
+    Swal.fire('Lỗi!', 'Không thể tải thông tin người dùng.', 'error');
+    router.push('/users');
+  } finally {
+    isLoading.value = false;
+  }
 };
 
-// Hàm xử lý gửi yêu cầu tạo người dùng mới
-const handleAddUser = async () => {
-  if (!userForm.value.userFullName || !userForm.value.email || !userForm.value.password) {
+// Hàm xử lý cập nhật người dùng
+const handleUpdateUser = async () => {
+  if (!userForm.value.userFullName || !userForm.value.email) {
     Swal.fire('Lỗi!', 'Vui lòng điền đầy đủ các trường bắt buộc.', 'error');
     return;
   }
 
   try {
     isSubmitting.value = true;
-    await authService.register(userForm.value);
+    await userService.updateUser(userId, userForm.value);
 
     Swal.fire({
       icon: 'success',
       title: 'Thành công!',
-      text: 'Người dùng đã được thêm thành công.',
+      text: 'Thông tin người dùng đã được cập nhật.',
       showConfirmButton: false,
-      timer: 1500
+      timer: 1500,
     });
 
-    resetForm();
+    router.push('/users');
   } catch (error) {
-    console.error('Lỗi khi thêm người dùng:', error);
-    Swal.fire('Lỗi!', 'Không thể thêm người dùng. Vui lòng thử lại.', 'error');
+    console.error('Lỗi khi cập nhật người dùng:', error);
+    Swal.fire('Lỗi!', 'Không thể cập nhật người dùng.', 'error');
   } finally {
     isSubmitting.value = false;
   }
 };
+
+// Lấy dữ liệu người dùng khi trang được tải
+onMounted(() => {
+  fetchUser();
+});
 </script>
 
 <template>
-  <div class="add-user-container">
-    <h2>Thêm Người Dùng Mới</h2>
-    <form @submit.prevent="handleAddUser">
+  <div class="edit-user-container">
+    <h2>Chỉnh Sửa Người Dùng</h2>
+    <form @submit.prevent="handleUpdateUser" v-if="!isLoading">
       <div class="form-group">
         <label>Loại Người Dùng</label>
-        <select v-model="userForm.userType" required>
+        <select v-model="userForm.userType">
           <option value="">Chọn loại</option>
           <option value="admin">Admin</option>
           <option value="staff">Nhân Viên</option>          
@@ -89,11 +96,6 @@ const handleAddUser = async () => {
       <div class="form-group">
         <label>Email</label>
         <input type="email" v-model="userForm.email" placeholder="Nhập email" required />
-      </div>
-
-      <div class="form-group">
-        <label>Mật Khẩu</label>
-        <input type="password" v-model="userForm.password" placeholder="Nhập mật khẩu" required />
       </div>
 
       <div class="form-group">
@@ -112,14 +114,14 @@ const handleAddUser = async () => {
       </div>
 
       <button type="submit" class="btn-submit" :disabled="isSubmitting">
-        {{ isSubmitting ? 'Đang xử lý...' : 'Thêm Người Dùng' }}
+        {{ isSubmitting ? 'Đang xử lý...' : 'Cập Nhật' }}
       </button>
     </form>
   </div>
 </template>
 
 <style scoped>
-.add-user-container {
+.edit-user-container {
   max-width: 600px;
   margin: auto;
   margin-top: 40px!important;

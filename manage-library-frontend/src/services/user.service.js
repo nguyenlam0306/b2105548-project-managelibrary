@@ -15,6 +15,16 @@ class UserService {
   async deleteUser(userId) {
     return await axios.delete(`${baseURL}/delete/${userId}`);
   }
+  async updateUser(userId, user) {
+    console.log(user);
+    return (
+      await axios.put(`${baseURL}/update/${userId}`, user, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+    ).data;
+  }
 }
 
 export default new UserService();

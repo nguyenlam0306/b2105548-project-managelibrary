@@ -25,6 +25,16 @@ const tab = ref("AllUsers");
     >
       Thêm thành viên
     </router-link>
+
+     <!-- Nút Độc giả -->
+    <router-link
+      to="/readers/all"
+      class="btn custom-btn"
+      :class="{ active: tab === 'AllReaders' }"
+      @click="tab = 'AllReaders'"
+    >
+      Quản lý độc giả
+    </router-link>
   </div>
 
   <div>

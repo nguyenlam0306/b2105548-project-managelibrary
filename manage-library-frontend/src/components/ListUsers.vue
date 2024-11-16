@@ -4,6 +4,8 @@ import userService from '../services/user.service';
 import UserModal from './UserModal.vue';
 import Swal from 'sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
+import router from '@/router';
+
 
 const users = ref([]);
 const selectedUser = ref(null);
@@ -32,7 +34,9 @@ const editUser = (user) => {
     icon: 'info',
     title: 'Chỉnh sửa',
     text: `Chỉnh sửa thông tin của ${user.userFullName}`
-  });
+  }); 
+  router.push(`/users/update/${user._id}`);
+
 };
 
 // Xóa người dùng

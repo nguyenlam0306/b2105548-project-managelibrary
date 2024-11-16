@@ -64,9 +64,7 @@ async function changeStatus(transactionStatus) {
         <td>{{ (new Date(transaction.toDate)).toLocaleDateString() }} {{ (new Date(transaction.toDate)).toLocaleTimeString()
         }}
         </td>
-        <td>{{ transaction.returnDate ? ((new Date(transaction.returnDate)).toLocaleDateString() + ' ' + (new
-            Date(transaction.returnDate)).toLocaleTimeString()) : ((new Date(transaction.returnDate)).toLocaleDateString() + ' ' + (new
-                Date(transaction.returnDate)).toLocaleTimeString()) }}</td>
+        <td>{{ transaction.returnDate ? (new Date(transaction.returnDate)).toLocaleDateString()  : (new Date(transaction.returnDate)).toLocaleDateString()  }}</td>
     </tr>
 
 
@@ -92,11 +90,7 @@ async function changeStatus(transactionStatus) {
                             <option value="accepted">Đã nhận</option>   
                             <option value="rejected">Đã từ chối</option>                     
                         </select>
-                    </div>
-                    <!-- <div>Địa chỉ: {{ transaction.address }}</div> -->
-                    <!-- <div>Số điện thoại: {{ transaction.phone }}</div> -->
-                    <!-- <div>Ghi chú</div> -->
-                    <!-- <textarea class="form-control" name="" id="" cols="30" rows="3" disabled>{{ transaction.note }}</textarea> -->
+                    </div>                  
                 </div>
                 <div class="modal-footer">
                     <button :id="`close${props.transaction._id}`" type="button" class="btn btn-secondary"
