@@ -47,40 +47,6 @@ static  async deleteUserById(req, res) {
       res.status(403).json("You can delete only your account!");
     }
   }
-
- static async moveToActiveTransactions(req, res) {
-  // console.log(req.params.isAdmin);
-    if (req.body.isAdmin) {
-      try {
-        await UserService.moveToActiveTransactions(
-          req.body.userId,
-          req.params.id
-        );
-        res.status(200).json("Added to Active Transaction");
-      } catch (err) {
-           err = "Có lỗi trong đi đến giao dịch hiện tại";
-        res.status(500).json(err);
-      }
-    } else {
-      res.status(403).json("Only Admin can add a transaction");
-    }
-  }
-
- static async moveToPrevTransactions(req, res) {
-    if (req.body.isAdmin) {
-      try {
-        await UserService.moveToPrevTransactions(
-          req.body.userId,
-          req.params.id
-        );
-        res.status(200).json("Added to Prev transaction Transaction");
-      } catch (err) {
-        res.status(500).json(err);
-      }
-    } else {
-      res.status(403).json("Only Admin can do this");
-    }
-  }
 }
 
 export default UserController;

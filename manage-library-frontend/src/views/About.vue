@@ -17,7 +17,7 @@ export default {
     <div class="about-data">
       <div class="about-img">
         <img
-          src="/public/4.svg"
+          src="../assets/images/5.svg"
           alt=""
         />
       </div>
@@ -50,7 +50,7 @@ Tối ưu hóa trải nghiệm người dùng – Giao diện đẹp mắt và t
       </div>
        <div class="about-img">
         <img
-          src="/public/6.svg"
+          src="../assets/images/6.svg"
           alt=""
         />
       </div>

@@ -46,7 +46,7 @@ class BookTransactionController {
     const followingStatus = req.body.transactionStatus
     const borrowerId = req.borrowerId
     try {
-        const result = await bookTransactionService.updateOrderStatus(
+        const result = await bookTransactionService.updateTransactionStatus(
           transactionId,
           followingStatus,
           borrowerId

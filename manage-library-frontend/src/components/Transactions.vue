@@ -5,13 +5,14 @@ import Swal from 'sweetalert2';
 import { useSocketStore } from "../stores/socket.store";
 import transactionService from "@/services/transaction.service";
 import TransactionCard from "./TransactionCard.vue";
+import AddTransaction from "./AddTransaction.vue";
 // service
 // card 
 const socketStore = useSocketStore()
 
 const renderComponent = ref(true)
 
-socketStore.io.on('updateBook', async () => {
+socketStore.io.on('updateTransaction', async () => {
     toast.warning("Có giao dịch mới")
     await fetchTransaction()
 })
@@ -77,8 +78,19 @@ watch(transactionStatus, async (value) => {
                 <select v-model="transactionStatus" class="form-select" aria-label="Default select example">
                     <option value="Active">Chọn trạng thái giao dịch</option>
                     <option value="processing">Đang xử lý</option>
-                    <option value="accepted">Đã tiếp nhận</option>                    
+                    <option value="accepted">Đã nhận</option>  
+                    <option value="rejected">Đã từ chối</option>
                 </select>
+                
+            </div>
+            <div class="col btn-group">
+               <router-link
+      to="/transactions/add"
+      class="btn custom-btn"   
+      
+    >
+      Thêm mới
+    </router-link>
             </div>
         </div>
         <div class="row">
@@ -108,5 +120,31 @@ watch(transactionStatus, async (value) => {
 .container{
     margin-top: 60px!important;
 }
+
+.custom-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #09308a;
+  color: white;
+  border: none;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.custom-btn:hover {
+  background-color: #2a4c9b;
+  color: #fcfafa;
+}
+
+.custom-btn.active {
+  background-color: #c8e8f4;
+  transform: translateY(-2px);
+}
+
+.custom-btn:focus {
+  box-shadow: none;
+}   
+
+
 
 </style>

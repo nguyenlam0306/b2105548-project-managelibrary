@@ -4,8 +4,7 @@
     <WelcomeBox />
     <Stats />
     <RecentAddedBooks />
-    <PopularBooks />
-    <ReservedBooks />     
+    <PopularBooks />   
     <Footer />
   </div>
 </template>
@@ -16,7 +15,6 @@ import WelcomeBox from '../components/WelcomeBox.vue';
 import Stats from '../components/Stats.vue';
 import RecentAddedBooks from '../components/RecentAddedBooks.vue';
 import PopularBooks from '../components/PopularBooks.vue';
-import ReservedBooks from '../components/ReservedBooks.vue';
 import Footer from '../components/Footer.vue';
 
 export default {
@@ -26,8 +24,7 @@ export default {
     WelcomeBox,
     Stats,
     RecentAddedBooks,
-    PopularBooks,
-    ReservedBooks,  
+    PopularBooks, 
     Footer
   }
 };

@@ -9,7 +9,8 @@ const bookService = new BookService()
 const status = {
     active:  "Đã sẵn sàng",
     processing: "Đang xử lý",
-    accepted: "Đã xử lý"
+    accepted: "Đã xử lý",
+    rejected: "Đã từ chối",
 }
 
 const props = defineProps(['transaction'])
@@ -88,7 +89,8 @@ async function changeStatus(transactionStatus) {
                     <div class="col-3 my-2">
                         <select v-model="transactionStatus" class="form-select" aria-label="Default select example">
                             <option value="processing">Đang xử lý</option>
-                            <option value="accepted">Đã nhận</option>                            
+                            <option value="accepted">Đã nhận</option>   
+                            <option value="rejected">Đã từ chối</option>                     
                         </select>
                     </div>
                     <!-- <div>Địa chỉ: {{ transaction.address }}</div> -->
@@ -106,9 +108,10 @@ async function changeStatus(transactionStatus) {
 </template>
 
 <style scoped>
+
 h3,
 h4,
 h5 {
-    color: #006f3c;
+    color: #1e62a2;
 }
 </style>

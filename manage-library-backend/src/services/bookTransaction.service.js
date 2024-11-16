@@ -35,16 +35,11 @@ class BookTransactionService {
     return transaction;
   }
   async updateTransactionStatus(transactionId, status, staffId) {
-    return await BookTransaction.findOneAndUpdate(
-      {
-        _id: ObjectId.isValid(transactionId) ? new ObjectId(transactionId) : "",
-      },
-      {
-        transactionStatus: status,
-        borrowerId: staffId,
-        returnDate: Date.now(),
-      }
-    );
+    return await BookTransaction.findByIdAndUpdate(transactionId, {
+      transactionStatus: status,
+      borrowerId: staffId,
+      returnDate: Date.now(),
+    });
   }
 }
 

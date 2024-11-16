@@ -1,4 +1,5 @@
 <script setup>
+import { ref } from "vue";
 import { useAuthStore } from "../stores/auth.store";
 import { RouterLink } from "vue-router";
 const authStore = useAuthStore();
@@ -10,6 +11,8 @@ const logout = () => {
   Swal.fire('Đăng xuất thành công!', '', 'success');
   window.location.reload();
 };
+
+const isAdmin = ref(localStorage.getItem('isAdmin'));
 
 </script>
 
@@ -45,7 +48,7 @@ const logout = () => {
         </li>
 
         <li class="nav-item">
-          <router-link class="nav-link"  to="/users">
+          <router-link class="nav-link"  to="/users" v-if="isAdmin">
             <span data-feather="users" class="align-text-bottom"></span>
            Thành viên
           </router-link>         

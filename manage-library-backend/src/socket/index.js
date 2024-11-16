@@ -14,8 +14,8 @@ export default function initSocket(server) {
       console.log("A user disconnected");
     });
 
-    socket.on("updateBook", () => {
-      io.emit("updateBook");
+    socket.on("transaction", () => {
+      io.emit("updateTransaction");
     });
 
     socket.on("changeStatus", () => {

@@ -1,14 +1,14 @@
 <template>
-  <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="3000">
+  <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="5000">
     <div class="carousel-inner">
       <div class="carousel-item active">
-        <img src="../../public/1.svg" class="d-block w-100" alt="1">
+        <img src="../assets/images/1.svg" class="d-block w-100" alt="1">
       </div>
       <div class="carousel-item">
-        <img src="../../public/4.svg" class="d-block w-100" alt="2">
+        <img src="../assets/images/2.svg" class="d-block w-100" alt="2">
       </div>
       <div class="carousel-item">
-        <img src="../../public/5.svg" class="d-block w-100" alt="3">
+        <img src="../assets/images/3.svg" class="d-block w-100" alt="3">
       </div>
     </div>
     <!-- Nút điều khiển "Previous" -->

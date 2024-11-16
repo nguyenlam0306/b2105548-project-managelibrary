@@ -6,23 +6,23 @@
         <p class="line"></p>
         <div class="persontype-question">
           <p class="p-2">
-            Bạn là nhân viên?
-            <input type="checkbox" v-model="isStudent" id="isStudent" />
-            <label for="isStudent" class="m-2"> Sinh viên</label>
+            Bạn là quản trị?
+            <input type="checkbox" v-model="isStaff" id="isStaff" />
+            <label for="isStaff" class="m-2"> Nhân viên</label>
           </p>
         </div>       
         <div class="signin-fields">
-          <label :for="isStudent ? 'admissionId' : 'employeeId'"
-            ><b>{{ isStudent ? "Mã sinh viên" : "Mã nhân viên" }}</b></label
+          <label :for="isStaff ? 'admissionId' : 'employeeId'"
+            ><b>{{ isStaff ? "Mã nhân viên" : "Mã quản trị viên" }}</b></label
           >
           <input
             class="signin-textbox"
             type="text"
-            :placeholder="isStudent ? 'Enter Student ID' : 'Enter Staff ID'"
-            :name="isStudent ? 'admissionId' : 'employeeId'"
+            :placeholder="isStaff ? 'Enter Staff ID' : 'Enter Admin ID'"
+            :name="isStaff ? 'admissionId' : 'employeeId'"
             required
             @input="
-              isStudent
+              isStaff
                 ? (admissionId = $event.target.value)
                 : (employeeId = $event.target.value)
             "
@@ -43,7 +43,7 @@
       </form>
       <div class="signup-option">
         <p class="signup-question">
-          Bạn chưa có tài khoản? Hãy liên hệ nhân viên
+          Bạn chưa có tài khoản? Hãy liên hệ quản trị viên
         </p>
       </div>
     </div>
@@ -56,7 +56,7 @@ import { ref } from "vue";
 import { useAuthStore } from "../stores/auth.store";
 
 const authStore = useAuthStore();
-const isStudent = ref(false);
+const isStaff = ref(false);
 const admissionId = ref("");
 const employeeId = ref("");
 const password = ref("");
@@ -65,7 +65,7 @@ const error = ref("");
 async function handleForm() {
   try {
     const result = await authStore.login({
-      ...(isStudent.value
+      ...(isStaff.value
         ? { admissionId: admissionId.value }
         : { employeeId: employeeId.value }),
       password: password.value,

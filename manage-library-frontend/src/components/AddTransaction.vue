@@ -1,4 +1,9 @@
+
 <template>
+  Trang thêm giao dịch
+</template>
+
+<!-- <template>
   <div>
     <p class="dashboard-option-title">Thêm mới giao dịch</p>
     <div class="dashboard-title-line"></div>
@@ -177,4 +182,4 @@
 
 <style scoped>
 /* Add your styles here */
-</style>
+</style> -->

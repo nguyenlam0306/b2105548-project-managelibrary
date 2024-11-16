@@ -56,19 +56,7 @@ const UserSchema = new mongoose.Schema(
     points: {
       type: Number,
       default: 0,
-    },
-    activeTransactions: [
-      {
-        type: mongoose.Types.ObjectId,
-        ref: "BookTransaction",
-      },
-    ],
-    prevTransactions: [
-      {
-        type: mongoose.Types.ObjectId,
-        ref: "BookTransaction",
-      },
-    ],
+    },    
     isAdmin: {
       type: Boolean,
       default: false,

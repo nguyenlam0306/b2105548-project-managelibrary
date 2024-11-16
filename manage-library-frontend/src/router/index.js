@@ -4,7 +4,6 @@ import About from "@/views/About.vue";
 import { nextTick } from "vue";
 
 import AdminDashboard from "../views/Dashboard/AdminDashboard.vue";
-// import MemberDashboard from "@/views/Dashboard/MemberDashboard.vue";
 import { useAuthStore } from "@/stores/auth.store.js";
 import AddBook from "@/components/AddBook.vue";
 import Profile from "@/components/Profile.vue";
@@ -14,6 +13,10 @@ import ShowLibrary from "@/views/ShowLibrary.vue";
 import Books from "@/components/Books.vue";
 import Publishers from "@/components/Publishers.vue";
 import Category from "@/components/Category.vue";
+import AddTransaction from "@/components/AddTransaction.vue"
+import Users from "@/components/Users.vue"
+import ListUsers from "@/components/ListUsers.vue";
+import AddUser from "@/components/AddUser.vue";
 
 const routes = [
   { path: "/", name: "Home", component: () => import("../views/Home.vue") },
@@ -57,6 +60,13 @@ const routes = [
         path: "/transactions",
         name: "Giao dịch",
         component: Transactions,
+        children: [
+          {
+            path: "/transactions/add",
+            name: "Thêm giao dịch",
+            component: AddTransaction,
+          },
+        ]
       },
       {
         path: "/publishers",
@@ -68,6 +78,23 @@ const routes = [
         name: "Thể loại",
         component: Category,
       },
+      {
+        path: "/users",
+        name: "Thành viên",
+        component: Users,
+        children: [          
+          {
+            path: "/users/all",
+            name: "Danh sách",
+            component: ListUsers,
+          },
+          {
+            path: "/users/add",
+            name: "Thêm users",
+            component: AddUser,
+          }
+        ]
+      }
     ],
   },
   { path: "/showlibrary", name: "Library", component: ShowLibrary },

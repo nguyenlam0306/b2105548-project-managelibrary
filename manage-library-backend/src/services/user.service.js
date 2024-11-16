@@ -4,17 +4,12 @@ import bcrypt from "bcrypt";
 class UserService {
   // Lấy người dùng theo ID
   async getUserById(id) {
-    return await User.findById(id)
-      .populate("activeTransactions")
-      .populate("prevTransactions");
+    return await User.findById(id);
   }
 
   // Lấy tất cả người dùng
   async getAllUsers() {
-    return await User.find({})
-      .populate("activeTransactions")
-      .populate("prevTransactions")
-      .sort({ _id: -1 });
+    return await User.find({});
   }
 
   // Cập nhật người dùng theo ID
@@ -31,18 +26,6 @@ class UserService {
     return await User.findByIdAndDelete(id);
   }
 
-  // Thêm giao dịch vào danh sách giao dịch hiện tại
-  async moveToActiveTransactions(userId, transactionId) {
-    const user = await User.findById(userId);
-    await user.updateOne({ $push: { activeTransactions: transactionId } });
-  }
-
-  // Chuyển giao dịch vào danh sách giao dịch trước đây và xóa khỏi giao dịch hiện tại
-  async moveToPrevTransactions(userId, transactionId) {
-    const user = await User.findById(userId);
-    await user.updateOne({ $pull: { activeTransactions: transactionId } });
-    await user.updateOne({ $push: { prevTransactions: transactionId } });
-  }
 }
 
 export default new UserService();
