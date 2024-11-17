@@ -35,6 +35,14 @@ const tab = ref("AllUsers");
     >
       Quản lý độc giả
     </router-link>
+    <router-link
+      to="/readers/add"
+      class="btn custom-btn"
+      :class="{ active: tab === 'AddReaders' }"
+      @click="tab = 'AddReaders'"
+    >
+      Thêm độc giả
+    </router-link>
   </div>
 
   <div>
@@ -65,8 +73,21 @@ const tab = ref("AllUsers");
   transition: background-color 0.3s, transform 0.2s;
 }
 
+.custom-btn-a{
+   display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #4b76a1;
+  color: white;
+  border: none;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+
 .custom-btn:hover {
-  background-color: #2a4c9b;
+  background-color: #00629b;
+  color: aliceblue;
+  /* color: aqua */
 }
 
 .custom-btn.active {

@@ -58,8 +58,8 @@ const handleDeleteUser = async (userId) => {
       Swal.fire('Đã xóa!', 'Người dùng đã được xóa thành công.', 'success');
       fetchUsers(); // Cập nhật lại danh sách sau khi xóa
     } catch (error) {
-      console.error('Lỗi khi xóa người dùng:', error);
-      Swal.fire('Lỗi!', 'Có lỗi xảy ra khi xóa người dùng.', 'error');
+      console.error('Lỗi khi xóa người dùng', error);
+      Swal.fire('Lỗi!', 'Bạn chỉ có thể xóa chính bạn.', 'error');
     }
   }
 };

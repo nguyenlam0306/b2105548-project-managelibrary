@@ -18,8 +18,9 @@ import Users from "@/components/Users.vue"
 import ListUsers from "@/components/ListUsers.vue";
 import AddUser from "@/components/AddUser.vue";
 import EditUser from "@/components/EditUser.vue";
-// import { component } from "vue/types/umd";
 import ListReaders from "@/components/ListReaders.vue";
+import AddReader from "@/components/AddReader.vue";
+import EditReader from "@/components/EditReader.vue";
 
 const routes = [
   { path: "/", name: "Home", component: () => import("../views/Home.vue") },
@@ -69,7 +70,7 @@ const routes = [
             name: "Thêm giao dịch",
             component: AddTransaction,
           },
-        ]
+        ],
       },
       {
         path: "/publishers",
@@ -85,7 +86,7 @@ const routes = [
         path: "/users",
         name: "Thành viên",
         component: Users,
-        children: [          
+        children: [
           {
             path: "/users/all",
             name: "Danh sách",
@@ -105,9 +106,19 @@ const routes = [
             path: "/readers/all",
             name: "Độc giả",
             component: ListReaders,
+          },
+          {
+            path: "/readers/add",
+            name: "Thêm mới Độc giả",
+            component: AddReader,
+          },
+          {
+            path: "/readers/update/:id",
+            name: "Hiệu chỉnh Độc giả",
+            component: EditReader,
           }
-        ]
-      }
+        ],
+      },
     ],
   },
   { path: "/showlibrary", name: "Library", component: ShowLibrary },

@@ -13,8 +13,29 @@ class ReaderService {
   }
 
   async addReader(reader) {
-    const response = await axios.post(`${API_URL}/add`, reader);
-    return response.data;
+    const authStore = useAuthStore();
+    return (
+      await axios.post(`${baseURL}/add`, reader, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+    ).data;
   }
 
+  async updateReader(readerId, reader) {
+    console.log(reader);
+    return (
+      await axios.put(`${baseURL}/update/${readerId}`, reader, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+    ).data;
+  }
+
+  async deleteUser(readerId) {
+    return await axios.delete(`${baseURL}/delete/${readerId}`);
+  }
 }
+export default ReaderService

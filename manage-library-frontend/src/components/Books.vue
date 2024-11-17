@@ -58,6 +58,7 @@ const tab = ref("AllBooks");
 
 .custom-btn:hover {
   background-color: #2a4c9b;
+  color: aliceblue;
 }
 
 .custom-btn.active {
