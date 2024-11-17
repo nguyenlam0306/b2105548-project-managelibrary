@@ -21,6 +21,7 @@ import EditUser from "@/components/EditUser.vue";
 import ListReaders from "@/components/ListReaders.vue";
 import AddReader from "@/components/AddReader.vue";
 import EditReader from "@/components/EditReader.vue";
+// import { component } from "vue/types/umd";
 
 const routes = [
   { path: "/", name: "Home", component: () => import("../views/Home.vue") },
@@ -63,15 +64,13 @@ const routes = [
       {
         path: "/transactions",
         name: "Giao dịch",
-        component: Transactions,
-        children: [
-          {
+        component: Transactions,               
+      },
+       {
             path: "/transactions/add",
-            name: "Thêm giao dịch",
+            name: "Add Transaction",
             component: AddTransaction,
           },
-        ],
-      },
       {
         path: "/publishers",
         name: "Nhà xuất bản",

@@ -105,7 +105,7 @@ watch(transactionStatus, async (value) => {
                         <th scope="col">Trạng thái</th>
                         <th scope="col">Thời gian mượn</th>
                         <th scope="col">Thời gian trả</th>
-                        <th scope="col">Cập nhật lúc</th>
+                        <th scope="col">Cập nhật vào</th>
                     </tr>
                 </thead>
                 <tbody v-if="renderComponent">

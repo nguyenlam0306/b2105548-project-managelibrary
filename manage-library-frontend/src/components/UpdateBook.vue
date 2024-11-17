@@ -5,6 +5,8 @@ import { useRoute } from 'vue-router';
 import BookService from "../services/book.service";
 import CategoryService from "@/services/category.service";
 import PublisherService from '@/services/publisher.service';
+import router from '@/router';
+
 
 const bookService = new BookService();
 const categoryService = new CategoryService();
@@ -58,6 +60,7 @@ async function onSubmit() {
                 timer: 2000,
                 showConfirmButton: false,
             });
+           router.push('/books/all');
         }
     } catch (err) {
         console.error("Lỗi khi hiệu chỉnh:", err);

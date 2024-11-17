@@ -43,10 +43,11 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import readerService from '../services/reader.service';
+import ReaderService from '../services/reader.service';
 import Swal from 'sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 
+const readerService = new ReaderService()
 const route = useRoute();
 const router = useRouter();
 
@@ -90,7 +91,7 @@ const updateReader = async () => {
   try {
     await readerService.updateReader(route.params.id, updatedReader);
     Swal.fire('Thành công!', 'Thông tin độc giả đã được cập nhật.', 'success');
-    router.push('/readers');
+    router.push('/readers/all');
   } catch (error) {
     console.error('Lỗi khi cập nhật thông tin độc giả:', error);
     Swal.fire('Lỗi!', 'Có lỗi xảy ra khi cập nhật độc giả.', 'error');

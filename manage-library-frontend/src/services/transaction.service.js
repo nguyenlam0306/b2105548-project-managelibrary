@@ -7,9 +7,9 @@ const baseURL = "http://localhost:4000/api/transactions";
 class TransactionService {
   async addTransaction(transactionDetail) {
     const authStore = useAuthStore();
-    return await axios.post(baseURL, transactionDetail, {
+    return await axios.post(`${baseURL}/add`, transactionDetail, {
       headers: {
-        "Content-Type": "application/json",       
+        "Content-Type": "application/json",          
       },
     });
   }

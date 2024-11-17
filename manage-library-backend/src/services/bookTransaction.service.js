@@ -7,7 +7,7 @@ class BookTransactionService {
     const newTransaction = new BookTransaction(data);
     const transaction = await newTransaction.save();
     const book = await Book.findById(data.bookId);
-    const reader = await Reader.findById(data.borrowerName);
+    const reader = await Reader.findById(data.readerId);
 
     await book.updateOne({ $push: { transactions: transaction._id } });
     await reader.updateOne({ $push: { transactions: transaction._id } });
@@ -29,16 +29,16 @@ class BookTransactionService {
   async deleteTransaction(id) {
     const transaction = await BookTransaction.findByIdAndDelete(id);
     const book = await Book.findById(transaction.bookId);
-    //  const reader = await Reader.findById(data.borrowerId);
+     const reader = await Reader.findById(transaction.readerId);
     await book.updateOne({ $pull: { transactions: id } });
-    //  await reader.updateOne({ $push: { transactions: transaction._id } });
+     await reader.updateOne({ $push: { transactions: transaction._id } });
     return transaction;
   }
   async updateTransactionStatus(transactionId, status, staffId) {
     return await BookTransaction.findByIdAndUpdate(transactionId, {
       transactionStatus: status,
       borrowerId: staffId,
-      returnDate: Date.now(),
+      returnDate: new Date(),
     });
   }
 }

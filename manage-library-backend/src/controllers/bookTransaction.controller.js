@@ -44,12 +44,12 @@ class BookTransactionController {
   static async updateTransactionStatus(req, res) {
     const transactionId = req.body.transactionId
     const followingStatus = req.body.transactionStatus
-    const borrowerId = req.borrowerId
+    const userId = req.userId
     try {
         const result = await bookTransactionService.updateTransactionStatus(
           transactionId,
           followingStatus,
-          borrowerId
+          userId
         );
         res.status(200).json(result)
     } catch (err) {

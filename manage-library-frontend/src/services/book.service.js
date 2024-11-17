@@ -3,14 +3,12 @@ import { useAuthStore } from "../stores/auth.store";
 
 const baseURL = "http://localhost:4000/api/books";
 class BookService {
- 
-
   async addBook(book) {
-    const authStore = useAuthStore();   
+    const authStore = useAuthStore();
     return (
       await axios.post(`${baseURL}/add`, book, {
         headers: {
-          "Content-Type": "application/json"         
+          "Content-Type": "application/json",
         },
       })
     ).data;
@@ -38,6 +36,12 @@ class BookService {
       })
     ).data;
   }
+  async getBookById(id) {
+    const response = await axios.get(`${baseURL}/${id}`);
+    return response.data;
+  }
 }
+
+ 
 
 export default BookService
