@@ -46,7 +46,7 @@ onMounted(fetchCategories);
 <template>
   <div class="container">
     <div class="card shadow p-4 mb-5">
-      <h2 class="text-center mb-4">Quản Lý thể loại</h2>
+      <h2 class="text-center mb-4">Quản Lý Thể Loại</h2>
 
       <!-- Form Thêm Nhà Xuất Bản -->
       <form @submit.prevent="onSubmit">        
@@ -71,7 +71,7 @@ onMounted(fetchCategories);
 
     <!-- Hiển Thị Danh Sách Nhà Xuất Bản -->
     <div class="card shadow p-4">
-      <h3 class="mb-4">Danh sách thể loại</h3>
+      <h3 class="mb-4">Danh sách Thể Loại</h3>
       <table class="table table-hover table-responsive">
         <thead>
           <tr>            

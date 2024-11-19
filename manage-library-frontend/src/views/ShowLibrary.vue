@@ -1,132 +1,105 @@
+<script setup>
+import { ref, onMounted } from 'vue';
+import BookService from '../services/book.service';
+import Swal from 'sweetalert2';
+import 'sweetalert2/dist/sweetalert2.min.css';
+
+const bookService = new BookService;
+
+const books = ref([]);
+
+// Hàm lấy danh sách sách từ service
+const fetchBooks = async () => {
+  try {
+    books.value = await bookService.getAllBooks();
+  } catch (error) {
+    console.error('Lỗi khi lấy danh sách sách:', error);
+    Swal.fire('Lỗi', 'Không thể lấy danh sách sách', 'error');
+  }
+};
+
+// Gọi hàm fetchBooks khi component được mounted
+onMounted(() => {
+  fetchBooks();
+});
+</script>
+
 <template>
   <div class="books-page">
     <div class="books">
-      <div class="book-card" v-for="book in books" :key="book.title">
-        <img :src="book.image" alt="" />
+      <div class="book-card" v-for="book in books" :key="book._id">
+        <img :src="book.imageUrl || 'https://images.pexels.com/photos/1105564/pexels-photo-1105564.jpeg?auto=compress&cs=tinysrgb&w=600'" alt="" />
         <p class="bookcard-title">{{ book.title }}</p>
         <p class="bookcard-author">By {{ book.author }}</p>
         <div class="bookcard-category">
-          <p>{{ book.category }}</p>
+          <p>{{ book.publicationYear }}</p>
         </div>
-        <div class="bookcard-emptybox"></div>
+        <!-- <div class="bookcard-emptybox"></div> -->
       </div>
     </div>
   </div>
 </template>
 
-<script>
-export default {
-  name: "Thư viện",
-  data() {
-    return {
-      books: [
-        {
-          title: "Wings Of Fire",
-          author: "Pranavdhar",
-          category: "Auto Biography",
-          image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQp16xiXu1ZtTzbLy-eSwEK4Ng6cUpUZnuGbQ&usqp=CAU",
-        },
-        {
-          title: "The Power Of Your Subconscious Mind",
-          author: "Joseph",
-          category: "Psychology",
-          image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-Rb2t6jA5ml7n57qdTZbAOWX1qSfsLCbaOA&usqp=CAU",
-        },
-        {
-          title: "Elon Musk",
-          author: "Elon",
-          category: "Auto Biography",
-          image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRFiDRQ7a-Oo-CnMmnbIMApP1Cq9B5bYx-UA&usqp=CAU",
-        },
-        {
-          title: "The Subtle Art Of Not Giving A Fuck",
-          author: "Mark Manson",
-          category: "COMIC",
-          image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-Rb2t6jA5ml7n57qdTZbAOWX1qSfsLCbaOA&usqp=CAU",
-        },
-      ],
-    };
-  },
-};
-</script>
-
 <style scoped>
-.books-page{
-    height: 100vh;
-    width: 100vw;
-    background-color: wheat;
+.books-page {
+  height: 100vh;
+  width: 100vw;
+  background-color: wheat;
 }
 
-.books{
-    margin: 60px auto;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
-    padding: 15px;
-    max-width: 1024px;
+.books {
+  margin: 60px auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 15px;
+  max-width: 1024px;
 }
 
-.book-card{
-    display: flex;
-    flex-direction: column;
-    box-sizing: content-box;
-    height: auto;
-    width: 250px;
-    align-items: center;
-    padding: 25px;
-    margin: 10px;
-    -webkit-box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
-    box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
-    border-radius: 15px;
-    position: relative;
-    background-color: rgb(238, 238, 238);
+.book-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 25px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  background-color: #eee;
 }
 
-.book-card img{
-    width: 150px;
-    height: auto;
-    margin-bottom: 25px!important;
-    border-radius: 18px;
+.book-card img {
+  width: 150px;
+  height: auto;
+  margin-bottom: 15px;
+  border-radius: 10px;
 }
 
-.book-card img:hover{
-    transform: scale(1.05);
-    transition: all ease 1.3s;
+.book-card img:hover {
+  transform: scale(1.05);
+  transition: transform 0.3s ease;
 }
 
-.bookcard-title{
-    word-wrap: break-word;
-    text-align: center;
-    font-weight: 600;
-    font-size: 16px;
+.bookcard-title {
+  font-weight: bold;
+  font-size: 16px;
+  text-align: center;
 }
 
-.bookcard-author{
-    color: rgb(141, 140, 140);
-    font-size: 14px;
-    font-weight: 900;
+.bookcard-author {
+  color: #8d8c8c;
+  font-size: 14px;
 }
 
-.bookcard-category{
-    display: flex;
-    flex-wrap: wrap;
-    position: absolute;
-    bottom: 5%;
-    left: 5%;
+.bookcard-category p {
+  padding: 5px 10px;
+  background-color: lightgray;
+  border-radius: 5px;
+  font-weight: bold;
 }
 
-.bookcard-category p{
-    padding: 8px 15px;
-    background-color: lightgray;
-    font-weight: 600;
-    margin: 5px;
-    border-radius: 5px;
-}
-
-.bookcard-emptybox{
-    height: 50px;
-    position: relative;
-    bottom: 0%;
-    background-color: rgb(0, 0, 0);
+.bookcard-emptybox {
+  height: 40px;
+  width: 100%;
+  background-color: black;
+  margin-top: 15px;
 }
 </style>

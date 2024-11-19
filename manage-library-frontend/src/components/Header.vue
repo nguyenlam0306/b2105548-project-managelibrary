@@ -1,8 +1,11 @@
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 import AuthService from '@/services/auth.service';
 import { useRouter } from 'vue-router';
+import BookService from '../services/book.service';
 import Swal from 'sweetalert2';
+
+
 
 const router = useRouter();
 const menutoggle = ref(false);
@@ -20,15 +23,30 @@ function getUser() {
   user.value = AuthService.getCurrentUser();
 }
 
-function handleLogout() {
-  AuthService.logout();
-  user.value = null;
-  Swal.fire('Đăng xuất thành công!', '', 'success');
-  router.push('/signin');
+const bookService = new BookService
+const books = ref([]);
+const searchQuery = ref('');
+const filteredBooks = computed(() =>
+  books.value.filter(
+    (book) =>
+      book.title.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
+      book.author.toLowerCase().includes(searchQuery.value.toLowerCase())
+  )
+);
+
+// Lấy danh sách sách từ backend khi component được tải
+const fetchBooks = async () => {
+  try {
+    books.value = await bookService.getAllBooks();
+  } catch (error) {
+    console.error('Lỗi khi lấy sách:', error);
+  }
 }
+
 
 onMounted(() => {
   getUser();
+  fetchBooks();
 });
 </script>
 
@@ -41,26 +59,39 @@ onMounted(() => {
     </div>
 
     <div class="nav-right">
-      <input class="search-input" type="text" placeholder="Search a Book" />
+      <!-- Thanh tìm kiếm -->
+      <div class="search-books">
+        <input
+          v-model="searchQuery"
+          type="text"
+          placeholder="Tìm kiếm sách..."
+          class="search-input"
+        />
+        <div v-if="filteredBooks.length > 0 && searchQuery" class="book-results">
+          <div v-for="book in filteredBooks" :key="book._id" class="book-card">
+            <!-- <img src="https://images.pexels.com/photos/1148399/pexels-photo-1148399.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Book cover" class="book-image" /> -->
+            <div class="book-info">
+              <h3>{{ book.title }}</h3>
+              <p>Tác giả: {{ book.author }}</p>
+              <p>Năm xuất bản: {{ book.publicationYear }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Menu điều hướng -->
       <ul :class="{ 'nav-options': true, 'active': menutoggle }">
         <li class="option" @click="closeMenu">
-          <router-link to="/">
-            <a href="#home">Home</a>
-          </router-link>
+          <router-link to="/">Home</router-link>
         </li>
         <li class="option" @click="closeMenu">
-          <router-link to="/showlibrary">
-            <a href="#library">Sách</a>
-          </router-link>
+          <router-link to="/showlibrary">Sách</router-link>
         </li>
         <li class="option" @click="closeMenu">
-          <router-link to="/about">
-            <a href="#about">About</a>
-          </router-link>
+          <router-link to="/about">About</router-link>
         </li>
-        <!-- Kiểm tra nếu người dùng đã đăng nhập -->
-        <li v-if="user" class="option" @click="closeMenu">          
-           <router-link to="/dashboard@admin"><i class="fa-solid fa-house"></i></router-link>         
+        <li v-if="user" class="option" @click="closeMenu">
+          <router-link to="/dashboard@admin"><i class="fa-solid fa-house"></i></router-link>
         </li>
         <li v-else class="option" @click="closeMenu">
           <router-link to="/signin"><i class="fa-solid fa-user"></i></router-link>
@@ -69,11 +100,11 @@ onMounted(() => {
     </div>
 
     <div class="mobile-menu" @click="Toggle">
-      <span v-if="menutoggle" class="menu-icon clear-icon" style="font-size: 40px"><i class="fa-solid fa-bars"></i></span>
-      <span v-else class="menu-icon" style="font-size: 40px"> </span>
+      <span class="menu-icon"><i class="fa-solid fa-bars"></i></span>
     </div>
   </div>
 </template>
+
 
 
 
@@ -164,6 +195,71 @@ a {
 .mobile-menu {
     display: block;
 }
+
+/* Tìm kiếm sách  */
+
+.search-books {
+  position: relative;
+  max-width: 300px;
+  margin-right: 20px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #CBDCEB;
+  background-color: #F3F3E0;
+  color: #133E87;
+  font-size: 16px;
+}
+
+.book-results {
+  position: absolute;
+  top: 40px;
+  left: 0;
+  width: 100%;
+  background-color: #F9F9F9;
+  border: 1px solid #CBDCEB;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-height: 300px;
+  overflow-y: auto;
+  z-index: 10;
+}
+
+.book-card {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.book-card:last-child {
+  border-bottom: none;
+}
+
+.book-image {
+  width: 40px;
+  height: 60px;
+  object-fit: cover;
+  margin-right: 10px;
+  border-radius: 5px;
+}
+
+.book-info h3 {
+  font-size: 16px;
+  margin: 0;
+  color: #133E87;
+}
+
+.no-results {
+  text-align: center;
+  color: #888;
+  font-size: 14px;
+  padding: 10px;
+}
+
 
 @media (min-width: 768px) {
     .mobile-menu {

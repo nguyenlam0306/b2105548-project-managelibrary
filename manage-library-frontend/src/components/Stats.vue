@@ -1,3 +1,42 @@
+<script setup>
+import { ref, onMounted } from 'vue';
+import BookService from '../services/book.service';
+import TransactionService from '@/services/transaction.service';
+import Swal from 'sweetalert2';
+import 'sweetalert2/dist/sweetalert2.min.css';
+
+const bookService = new BookService;
+// const transactionService = new TransactionService;
+
+const books = ref([]);
+const transactions = ref([]);
+
+// Hàm lấy danh sách sách từ service
+const fetchBooks = async () => {
+  try {
+    books.value = await bookService.getAllBooks();
+  } catch (error) {
+    console.error('Lỗi khi lấy danh sách sách:', error);
+    Swal.fire('Lỗi', 'Không thể lấy danh sách sách', 'error');
+  }
+};
+
+const fetchTransactions = async () => {
+  try {
+    transactions.value = await TransactionService.getAllTransactions();
+  } catch (error) {
+    console.error('Lỗi khi lấy danh sách sách:', error);
+    Swal.fire('Lỗi', 'Không thể lấy danh sách sách', 'error');
+  }
+};
+
+// Gọi hàm fetchBooks khi component được mounted
+onMounted(() => {
+  fetchBooks();
+  fetchTransactions();
+});
+</script>
+
 <template>
   <div class="stats">
     <div class="stats-block">
@@ -6,7 +45,7 @@
     </span>
      
       <p class="stats-title">Tổng số sách</p>
-      <p class="stats-count">300</p>
+      <p class="stats-count">{{ books.length }}</p>
     </div>
     <div class="stats-block">
     <span class="stats-icon">
@@ -20,18 +59,12 @@
       <i class="fa-solid fa-calendar-days"></i>
     </span>   
       <p class="stats-title">Đã đặt hàng</p>
-      <p class="stats-count">78</p>
+      <p class="stats-count">{{ transactions.length }}</p>
     </div>
   </div>
 </template>
 
-<script>
 
-
-export default {
-  name: 'Stats'
-};
-</script>
 
 <style scoped>
 .stats {
