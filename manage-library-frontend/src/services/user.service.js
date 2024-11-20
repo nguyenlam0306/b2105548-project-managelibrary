@@ -9,7 +9,19 @@ class UserService {
     return (await axios.get(`${baseURL}/${userId}`)).data;
   }
   async getAllUsers() {
+     const authStore = useAuthStore();
+     try {
+       if (!authStore.isAdmin) {
+      throw new Error("Bạn không có quyền xem thành viên.");      
+     } 
     return (await axios.get(`${baseURL}/all`)).data;
+    
+    }
+     catch (error) {
+      console.error("Lỗi xem ds thành viên", error.message);
+      throw error; // Ném lỗi để xử lý ở nơi gọi hàm này
+     }
+    
   }
 
   async deleteUser(userId) {

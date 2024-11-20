@@ -12,7 +12,7 @@ const logout = () => {
   window.location.reload();
 };
 
-const isAdmin = ref(localStorage.getItem('isAdmin'));
+// const isAdmin = ref(localStorage.getItem('isAdmin'));
 
 </script>
 
@@ -35,7 +35,7 @@ const isAdmin = ref(localStorage.getItem('isAdmin'));
           </router-link>
         </li>
         <li class="nav-item">
-          <router-link class="nav-link"  to="/books">
+          <router-link class="nav-link"  to="/books/all">
             <span data-feather="file" class="align-text-bottom"></span>
             Sách
           </router-link>
@@ -48,7 +48,7 @@ const isAdmin = ref(localStorage.getItem('isAdmin'));
         </li>
 
         <li class="nav-item">
-          <router-link class="nav-link"  to="/users" v-if="isAdmin">
+          <router-link class="nav-link"  to="/readers/all">
             <span data-feather="users" class="align-text-bottom"></span>
            Thành viên
           </router-link>         

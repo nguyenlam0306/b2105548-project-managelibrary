@@ -1,7 +1,9 @@
 <script setup>
 import { ref } from "vue";
 import { RouterLink, RouterView } from "vue-router";
+import { useAuthStore } from "@/stores/auth.store";
 
+const isAdmin = useAuthStore().isAdmin;
 const tab = ref("AllUsers");
 </script>
 
@@ -12,7 +14,9 @@ const tab = ref("AllUsers");
       to="/users/all"
       class="btn custom-btn"
       :class="{ active: tab === 'AllUsers' }"
-      @click="tab = 'AllUsers'"    >
+      @click="tab = 'AllUsers'"    
+      v-if="isAdmin"
+      >
       Danh sách thành viên
     </router-link>
     
@@ -22,6 +26,7 @@ const tab = ref("AllUsers");
       class="btn custom-btn"
       :class="{ active: tab === 'AddUser' }"
       @click="tab = 'AddUser'"
+       v-if="isAdmin"
     >
       Thêm thành viên
     </router-link>

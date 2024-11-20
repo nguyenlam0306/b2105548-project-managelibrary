@@ -1,8 +1,11 @@
 <script setup>
 import { ref } from "vue";
 import { RouterLink, RouterView } from "vue-router";
+import { useAuthStore } from "@/stores/auth.store";
 
 const tab = ref("AllBooks");
+const isAdmin = useAuthStore().isAdmin;
+console.log(isAdmin)
 </script>
 
 <template>
@@ -23,6 +26,7 @@ const tab = ref("AllBooks");
       class="btn custom-btn"
       :class="{ active: tab === 'AddBook' }"
       @click="tab = 'AddBook'"
+      v-if="isAdmin"
     >
       Thêm sách
     </router-link>

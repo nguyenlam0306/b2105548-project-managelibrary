@@ -3,6 +3,7 @@ import { RouterLink } from "vue-router";
 import { ref, defineProps, computed, defineEmits } from "vue";
 // import axios from 'axios';
 import Swal from 'sweetalert2';
+import { useAuthStore } from "@/stores/auth.store";
 
 const props = defineProps([
   'bookId', 'bookID', 'title', 'price', 'categories', 'author',
@@ -10,8 +11,10 @@ const props = defineProps([
 ]);
 const emits = defineEmits(['deleteBook']);
 
+const authStore = useAuthStore()
 // Lấy giá trị isAdmin từ localStorage
-const isAdmin = ref(localStorage.getItem('isAdmin'));
+const isAdmin = authStore.isAdmin;
+console.log(isAdmin)
 
 const formatPrice = computed(() => {
   let formattedPrice = props.price;
@@ -44,6 +47,10 @@ const handleDeleteBook = async () => {
   // Nếu người dùng xác nhận, thực hiện yêu cầu xóa
   if (result.isConfirmed) {
     try {
+
+      if (!isAdmin) {
+        throw new Error("Bạn không có quyền xóa sách.");
+      }
       const res = await emits('deleteBook', props.bookId);
       console.log(res);
         Swal.fire('Đã xóa!', 'Sách đã được xóa thành công.', 'success');
@@ -51,7 +58,7 @@ const handleDeleteBook = async () => {
        } 
        catch (err) {
       console.error(err);
-      Swal.fire('Lỗi!', 'Có lỗi xảy ra khi xóa sách.', 'error');
+      Swal.fire('Lỗi!', 'Bạn không có quyền xóa sách', 'error');
     }
   }
 };

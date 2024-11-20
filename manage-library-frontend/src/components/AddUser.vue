@@ -5,6 +5,11 @@ import authService from '@/services/auth.service';
 import Swal from 'sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 
+import { useAuthStore } from '@/stores/auth.store';
+
+const authStore = useAuthStore();
+const isAdmin = authStore.isAdmin;
+
 const userForm = ref({
   isAdmin: false,
   userType: '',
@@ -50,6 +55,9 @@ const handleAddUser = async () => {
 
   try {
     isSubmitting.value = true;
+     if (!isAdmin) {
+        throw new Error("Bạn không có quyền thêm thành viên");
+      }
     await authService.register(userForm.value);
 
     Swal.fire({
@@ -63,7 +71,7 @@ const handleAddUser = async () => {
     resetForm();
   } catch (error) {
     console.error('Lỗi khi thêm người dùng:', error);
-    Swal.fire('Lỗi!', 'Không thể thêm người dùng. Vui lòng thử lại.', 'error');
+    Swal.fire('Lỗi!', 'Thông tin người thêm không hợp lệ', 'error');
   } finally {
     isSubmitting.value = false;
   }
