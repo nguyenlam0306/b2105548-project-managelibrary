@@ -25,6 +25,8 @@ class UserService {
       })
     ).data;
   }
+
+  
 }
 
 export default new UserService();

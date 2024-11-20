@@ -7,11 +7,17 @@ export default function initSocket(server) {
     },
   });
 
+  let onlineUsers = 0;
+
   io.on("connection", (socket) => {
-    console.log("A new connection");
+     console.log("New client connected:", socket.id);
+    io.emit("updateUserCount", onlineUsers);
+    onlineUsers = onlineUsers + 1;
 
     socket.on("disconnect", () => {
       console.log("A user disconnected");
+       onlineUsers = onlineUsers - 1;
+       io.emit("updateUserCount", onlineUsers);
     });
 
     socket.on("transaction", () => {

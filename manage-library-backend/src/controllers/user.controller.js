@@ -23,29 +23,25 @@ class UserController {
 
   static async updateUserById(req, res) {
     // console.log(req.body.userId);
-    if (req.body.userId === req.params.id || req.body.isAdmin) {
+   
       try {
         await UserService.updateUserById(req.params.id, req.body);
         res.status(200).json("Account has been updated");
       } catch (err) {
         res.status(500).json(err);
       }
-    } else {
-      res.status(403).json("You can update only your account!");
-    }
+    
   }
 
 static  async deleteUserById(req, res) {
-    if (req.body.userId === req.params.id || req.body.isAdmin) {
+    
       try {
         await UserService.deleteUserById(req.params.id);
         res.status(200).json("Account has been deleted");
       } catch (err) {
         res.status(500).json(err);
       }
-    } else {
-      res.status(403).json("You can delete only your account!");
-    }
+   
   }
 }
 

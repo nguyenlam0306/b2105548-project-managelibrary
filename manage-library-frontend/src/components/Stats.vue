@@ -1,13 +1,22 @@
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, onBeforeUnmount, computed} from 'vue';
 import BookService from '../services/book.service';
 import TransactionService from '@/services/transaction.service';
+import { useSocketStore } from '@/stores/socket.store';
+
 import Swal from 'sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 
+
+const socketStore = useSocketStore();
 const bookService = new BookService;
 // const transactionService = new TransactionService;
 
+onBeforeUnmount(() => {
+  socketStore.disconnect();
+});
+
+const onlineUsers = computed(() => socketStore.onlineUsers);
 const books = ref([]);
 const transactions = ref([]);
 
@@ -34,6 +43,7 @@ const fetchTransactions = async () => {
 onMounted(() => {
   fetchBooks();
   fetchTransactions();
+  socketStore.connect();
 });
 </script>
 
@@ -51,8 +61,8 @@ onMounted(() => {
     <span class="stats-icon">
       <i class="fa-brands fa-algolia"></i>
     </span>
-      <p class="stats-title">Truy cập</p>
-      <p class="stats-count">120</p>
+      <p class="stats-title">Đang truy cập</p>
+      <p class="stats-count">{{ onlineUsers }}</p>
     </div>
     <div class="stats-block">
    <span class="stats-icon">

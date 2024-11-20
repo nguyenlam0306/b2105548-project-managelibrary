@@ -59,7 +59,7 @@ const handleDeleteUser = async (userId) => {
       fetchUsers(); // Cập nhật lại danh sách sau khi xóa
     } catch (error) {
       console.error('Lỗi khi xóa người dùng', error);
-      Swal.fire('Lỗi!', 'Bạn chỉ có thể xóa chính bạn.', 'error');
+      Swal.fire('Lỗi!', 'Chỉ có admin mới được xóa người dùng.', 'error');
     }
   }
 };

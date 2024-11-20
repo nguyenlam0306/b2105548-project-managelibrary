@@ -15,7 +15,7 @@ const authStore = useAuthStore()
           <div class="user-info">
             <p class="user-name">{{ authStore.user.userFullName }}</p>
             <p class="user-id">
-              {{ authStore.user.userType === 'Student' ? authStore.user.admissionId : authStore.user.employeeId }}
+              {{ authStore.user.userType === 'staff' ? authStore.user.admissionId : authStore.user.employeeId }}
             </p>
             <p class="user-email">{{ authStore.user.email }}</p>
             <p class="user-phone">{{ authStore.user.mobileNumber }}</p>
@@ -25,34 +25,34 @@ const authStore = useAuthStore()
           <div class="specific-left">
             <div style="display: flex; justify-content: space-between">
               <p style="flex: 0.5; flex-direction: column">
-                <span><b>Age</b></span>
+                <span><b>Tuổi</b></span>
                 <br>
                 <span>{{ authStore.user.age }}</span>
               </p>
               <p style="flex: 0.5; flex-direction: column">
-                <span><b>Gender</b></span>
+                <span><b>Giới tính</b></span>
                 <br>
                 <span>{{ authStore.user.gender }}</span>
               </p>
             </div>
             <div style="display: flex; justify-content: space-between; margin-top: 30px">
               <p style="flex: 0.5; flex-direction: column">
-                <span><b>DOB</b></span>
+                <span><b>Ngày sinh</b></span>
                 <br>
                 <span>{{ authStore.user.dob }}</span>
               </p>
               <p style="flex: 0.5; flex-direction: column">
-                <span><b>Address</b></span>
+                <span><b>Địa chỉ</b></span>
                 <br>
                 <span>{{ authStore.user.address }}</span>
               </p>
             </div>
           </div>
           <div class="specific-right">
-            <p><b>Points</b></p>
+            <p><b>Điểm</b></p>
             <p>{{ authStore.user.points }}</p>
-            <p><b>Rank</b></p>
-            <p>{{ authStore.user.rank }}</p>
+            <p><b>Loại tài khoản</b></p>
+            <p>{{ authStore.user.userType }}</p>
           </div>
         </div>
       </div>

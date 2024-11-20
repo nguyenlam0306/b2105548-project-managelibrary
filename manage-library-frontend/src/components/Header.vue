@@ -137,7 +137,7 @@ onMounted(() => {
 
 .search-input {
     width: 100%;
-    margin-left: 10px;
+    margin-left: 0px;
     max-width: 1800px;
     height: 40px;
     outline: none;
@@ -218,6 +218,7 @@ a {
   position: absolute;
   top: 40px;
   left: 0;
+  /* right: 2; */
   width: 100%;
   background-color: #F9F9F9;
   border: 1px solid #CBDCEB;
@@ -231,6 +232,7 @@ a {
 .book-card {
   display: flex;
   align-items: center;
+  margin: auto;
   padding: 10px;
   border-bottom: 1px solid #eee;
 }

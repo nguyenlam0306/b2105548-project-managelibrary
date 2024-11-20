@@ -6,6 +6,7 @@ import Swal from 'sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 
 const userForm = ref({
+  isAdmin: false,
   userType: '',
   userFullName: '',
   admissionId: '',
@@ -24,6 +25,7 @@ const isSubmitting = ref(false);
 
 const resetForm = () => {
   userForm.value = {
+    isAdmin: false,
     userType: '',
     userFullName: '',
     admissionId: '',
@@ -76,7 +78,7 @@ const handleAddUser = async () => {
         <label>Loại Người Dùng</label>
         <select v-model="userForm.userType" required>
           <option value="">Chọn loại</option>
-          <option value="admin">Admin</option>
+          <!-- <option value="admin">Admin</option> -->
           <option value="staff">Nhân Viên</option>          
         </select>
       </div>
@@ -85,6 +87,12 @@ const handleAddUser = async () => {
         <label>Họ Tên</label>
         <input type="text" v-model="userForm.userFullName" placeholder="Nhập họ tên" required />
       </div>
+
+       <div class="form-group">
+        <label>Mã nhân viên (dùng để đăng nhập)</label>
+        <input type="text" v-model="userForm.admissionId" placeholder="Nhập mã nhân viên" />
+      </div>
+        
 
       <div class="form-group">
         <label>Email</label>

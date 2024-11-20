@@ -1,4 +1,4 @@
-const jwt = require("jsonwebtoken");
+import { verify } from "jsonwebtoken";
 
 function verifyToken(role = "user") {
   return (req, res, next) => {
@@ -13,15 +13,15 @@ function verifyToken(role = "user") {
       return res.sendStatus(401);
     }
     try {
-      const decoded = jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET);
+      const decoded = verify(accessToken, process.env.ACCESS_TOKEN_SECRET);
       req.id = decoded.id;
       req.username = decoded.username;
       req.role = decoded.role;
       if (role == "admin" && req.role != "admin") {
-        return res.sendStatus(403);
-      } else if (role == "staff" && req.role == "user") {
-        return res.sendStatus(403);
-      }
+        return res.sendStatus(403);}
+      // } else if (role == "staff" && req.role == "user") {
+      //   return res.sendStatus(403);
+      // }
       next();
     } catch (err) {
       // console.log(err)
@@ -30,6 +30,6 @@ function verifyToken(role = "user") {
   };
 }
 
-module.exports = {
+export default {
   verifyToken,
 };

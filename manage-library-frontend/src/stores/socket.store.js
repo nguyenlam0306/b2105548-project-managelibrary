@@ -7,10 +7,15 @@ export const useSocketStore = defineStore({
   id: "Socket",
   state: () => ({
     io: null,
+    onlineUsers:0,
   }),
   actions: {
     async connect() {
       this.io = io(VUE_APP_SOCKET_ENDPOINT);
+      // Lắng nghe sự kiện từ server
+      this.io.on("updateUserCount", (count) => {
+        this.onlineUsers = count;
+      });
     },
 
     async disconnect() {

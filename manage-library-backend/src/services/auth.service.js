@@ -1,5 +1,6 @@
 import bcrypt from "bcrypt";
 import User from "../models/user.model.js";
+import jwt from "jsonwebtoken"
 
 class authService {
   async registerUser(data) {
@@ -28,6 +29,7 @@ class authService {
 
     return user;
   }
+  
 }
 
 export default new authService();

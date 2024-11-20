@@ -10,7 +10,7 @@ class AuthService {
     // Lưu token và isAdmin vào localStorage
 
     localStorage.setItem("isAdmin", response.data.isAdmin);
-    localStorage.setItem("user", response.data.userFullName)
+    // localStorage.setItem("user", response.data.userFullName)
     return response.data;
   }
   async register(user) {
