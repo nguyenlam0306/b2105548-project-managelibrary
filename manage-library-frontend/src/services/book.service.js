@@ -67,6 +67,11 @@ class BookService {
     const response = await axios.get(`${baseURL}/${id}`);
     return response.data;
   }
+
+  async getBookByPublisher(id) {
+    const response = await axios.get(`${baseURL}/publisher/${id}`);
+    return response.data;
+  }
 }
 
  

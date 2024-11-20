@@ -28,83 +28,88 @@ class BookController {
       res.status(504).json(err);
     }
   }
-
-  async addBook(req, res) { 
-try {
-  // Kiểm tra dữ liệu từ frontend
-  const {
-    title,
-    bookID,
-    price,
-    quantity,
-    publicationYear,
-    publisher,
-    author,
-    bookStatus,
-    categories,
-    transactions,
-  } = req.body;
-
-  // Kiểm tra nếu thiếu các trường bắt buộc
-  if (
-    !title ||
-    !bookID ||
-    !price ||
-    !quantity ||
-    !publicationYear ||
-    !publisher ||
-    !author
-  ) {
-    return res.status(400).json({ message: "Missing required fields" });
+  async getBooksByPublisher(req, res) {
+    const publisherId = req.params.id;
+    try {
+      const books = await BookService.getBookByPublisher(publisherId);
+      res.status(200).json(books);
+    } catch (err) {
+      res.status(504).json(err);
+    }
   }
 
-  // Tạo object bookData từ req.body
-  const bookData = {
-    title,
-    bookID,
-    price,
-    quantity,
-    publicationYear,
-    publisher,
-    author,
-    bookStatus: bookStatus || "Available",
-    categories,
-    transactions,
-  };
+  async addBook(req, res) {
+    try {
+      // Kiểm tra dữ liệu từ frontend
+      const {
+        title,
+        bookID,
+        price,
+        quantity,
+        publicationYear,
+        publisher,
+        author,
+        bookStatus,
+        categories,
+        transactions,
+      } = req.body;
 
-  // Gọi hàm addBook từ BookService để lưu sách
-  const book = await BookService.addBook(bookData);
-
-  // Trả về kết quả
-  return res.status(200).json({ message: "Book added successfully", book });
-} catch (err) {
-  console.error("Error adding book:", err);
-  return res
-    .status(500)
-    .json({ message: "Internal Server Error", error: err.message });
-}
+      // Kiểm tra nếu thiếu các trường bắt buộc
+      if (
+        !title ||
+        !bookID ||
+        !price ||
+        !quantity ||
+        !publicationYear ||
+        !publisher ||
+        !author
+      ) {
+        return res.status(400).json({ message: "Missing required fields" });
       }
-   
-  
 
-  async updateBook(req, res) {   
-      try {
-        await BookService.updateBook(req.params.id, req.body);
-        res.status(200).json("Book details updated successfully");
-      } catch (err) {
-        res.status(504).json(err);
-      }
-    
+      // Tạo object bookData từ req.body
+      const bookData = {
+        title,
+        bookID,
+        price,
+        quantity,
+        publicationYear,
+        publisher,
+        author,
+        bookStatus: bookStatus || "Available",
+        categories,
+        transactions,
+      };
+
+      // Gọi hàm addBook từ BookService để lưu sách
+      const book = await BookService.addBook(bookData);
+
+      // Trả về kết quả
+      return res.status(200).json({ message: "Book added successfully", book });
+    } catch (err) {
+      console.error("Error adding book:", err);
+      return res
+        .status(500)
+        .json({ message: "Internal Server Error", error: err.message });
+    }
+  }
+
+  async updateBook(req, res) {
+    try {
+      await BookService.updateBook(req.params.id, req.body);
+      res.status(200).json("Book details updated successfully");
+    } catch (err) {
+      res.status(504).json(err);
+    }
   }
 
   async deleteBook(req, res) {
-    
-      try {
-        const result = await BookService.deleteBook(req.params.id);
-        res.status(200).json(result);
-      } catch (err) {
-        res.status(504).json(err);
-      }   
+    try {
+      const result = await BookService.deleteBook(req.params.id);
+      res.status(200).json(result);
+    } catch (err) {
+      res.status(504).json(err);
+    }
   }
 
   // Thêm phương thức tìm kiếm sách theo tiêu đề

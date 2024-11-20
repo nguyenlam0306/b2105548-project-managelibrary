@@ -8,7 +8,7 @@ const bookController = new BookController();
 
 router.get("/all", bookController.getAllBooks.bind(bookController));
 router.get("/:id", bookController.getBookById.bind(bookController));
-router.get("/", bookController.getBooksByCategory.bind(bookController));
+router.get("/publisher/:id", bookController.getBooksByPublisher.bind(bookController));
 router.post("/add", bookController.addBook.bind(bookController));
 router.put("/update/:id", bookController.updateBook.bind(bookController));
 router.delete(

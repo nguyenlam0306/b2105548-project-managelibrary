@@ -8,7 +8,16 @@ class BookTransactionService {
     const transaction = await newTransaction.save();
     const book = await Book.findById(data.bookId);
     const reader = await Reader.findById(data.readerId);
+    // Liên quan đến số lượng sách
+  if (!book) {
+  return res.status(404).json({ message: "Sách không tồn tại!" });
+}
 
+ if (book.quantity < 1) {
+   return res.status(400).json({ message: "Số lượng sách không đủ để giao dịch!" });
+ }
+   book.quantity -= 1;
+     await book.save();
     await book.updateOne({ $push: { transactions: transaction._id } });
     await reader.updateOne({ $push: { transactions: transaction._id } });
     return transaction;

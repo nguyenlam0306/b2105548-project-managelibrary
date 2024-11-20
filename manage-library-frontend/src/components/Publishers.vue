@@ -1,9 +1,13 @@
 <script setup>
 import { ref, reactive, onMounted } from "vue";
 import PublisherService from "@/services/publisher.service.js";
+import BookService from "@/services/book.service.js"; // Thêm service cho sách
 import Swal from "sweetalert2";
 
 const publisherService = new PublisherService();
+const bookService = new BookService();
+
+const publishersList = ref([]);
 
 const publisher = reactive({
   publisherID: "",
@@ -11,9 +15,15 @@ const publisher = reactive({
   address: "",
 });
 
-const publishersList = ref([]);
+const selectedPublisher = reactive({
+  publisherID: "",
+  publisherName: "",
+  address: "",
+  books: [], // Danh sách sách của nhà xuất bản
+});
+const showModal = ref(false);
 
-// Hàm lấy danh sách nhà xuất bản từ backend
+// Hàm lấy danh sách nhà xuất bản
 async function fetchPublishers() {
   try {
     publishersList.value = await publisherService.getAllPublishers();
@@ -21,6 +31,22 @@ async function fetchPublishers() {
     console.error("Failed to fetch publishers:", error);
   }
 }
+
+// Hàm lấy sách theo nhà xuất bản
+async function fetchBooksByPublisher(publisherId) {
+  try {
+    const books = await bookService.getBookByPublisher(publisherId);
+    selectedPublisher.books = books;
+    showModal.value = true; // Hiển thị modal
+  } catch (error) {
+    console.error("Failed to fetch books for publisher:", error);
+    Swal.fire("Lỗi", "Không thể lấy danh sách sách!", "error");
+  }
+}
+
+onMounted(() => {
+  fetchPublishers();
+});
 
 // Hàm xử lý khi submit form
 async function onSubmit() {
@@ -42,7 +68,10 @@ async function onSubmit() {
     console.error("Failed to add publisher:", error);
   }
 }
-
+function closeModal() {
+  showModal.value = false;
+  // Nếu muốn thêm hiệu ứng, có thể setTimeout trước khi ẩn hoàn toàn
+}
 onMounted(fetchPublishers);
 </script>
 
@@ -92,7 +121,7 @@ onMounted(fetchPublishers);
       </form>
     </div>
 
-    <!-- Hiển Thị Danh Sách Nhà Xuất Bản -->
+   <!-- Danh sách nhà xuất bản -->
     <div class="card shadow p-4">
       <h3 class="mb-4">Danh Sách Nhà Xuất Bản</h3>
       <table class="table table-hover table-responsive">
@@ -101,6 +130,7 @@ onMounted(fetchPublishers);
             <th>Mã NXB</th>
             <th>Tên NXB</th>
             <th>Địa Chỉ</th>
+            <th>Hành Động</th>
           </tr>
         </thead>
         <tbody>
@@ -108,10 +138,63 @@ onMounted(fetchPublishers);
             <td>{{ publisher.publisherID }}</td>
             <td>{{ publisher.publisherName }}</td>
             <td>{{ publisher.address || "N/A" }}</td>
+            <td>
+              <button
+                class="btn btn-primary"
+                @click="fetchBooksByPublisher(publisher._id)"
+              >
+                Xem Sách
+              </button>
+            </td>
           </tr>
         </tbody>
       </table>
     </div>
+
+    <!-- Modal hiển thị sách -->
+    <div
+  class="modal fade"
+  :class="{ show: showModal }"
+  :style="{ display: showModal ? 'block' : 'none' }"
+  tabindex="-1"
+  role="dialog"
+>
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">
+          Sách của Nhà Xuất Bản: {{ selectedPublisher.publisherName }}
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          @click="closeModal"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Mã Sách</th>
+              <th>Tên Sách</th>
+              <th>Giá</th>
+              <th>Số Lượng</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="book in selectedPublisher.books" :key="book.bookID">
+              <td>{{ book.bookID }}</td>
+              <td>{{ book.title }}</td>
+              <td>{{ book.price }}</td>
+              <td>{{ book.quantity }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
   </div>
 </template>
 

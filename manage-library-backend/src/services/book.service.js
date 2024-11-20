@@ -14,8 +14,19 @@ class BookService {
   async getBooksByCategory(categoryName) {
     return await BookCategory.findOne({ categoryName }).populate("books");
   }
-  async getBookByPublisher(publisherName) {
-    return await Publisher.findOne({ publisherName }).populate("books");
+  async getBookByPublisher(publisherId) {
+   try {
+     // Tìm sách theo publisherId
+     const publisher = await Publisher.findById(publisherId).populate(
+       "books"
+     );
+     if (!publisher) {
+       throw new Error("Không tìm thấy nhà xuất bản!");
+     }
+     return publisher.books;
+   } catch (error) {
+     throw new Error("Lỗi khi lấy danh sách sách: " + error.message);
+   }
   }
 
   async addBook(bookData) {
