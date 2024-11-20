@@ -43,7 +43,6 @@ const fetchTransactions = async () => {
 onMounted(() => {
   fetchBooks();
   fetchTransactions();
-  socketStore.connect();
 });
 </script>
 
@@ -62,7 +61,7 @@ onMounted(() => {
       <i class="fa-brands fa-algolia"></i>
     </span>
       <p class="stats-title">Đang truy cập</p>
-      <p class="stats-count">{{ onlineUsers }}</p>
+      <p class="stats-count">{{ onlineUsers + 1}}</p>
     </div>
     <div class="stats-block">
    <span class="stats-icon">
