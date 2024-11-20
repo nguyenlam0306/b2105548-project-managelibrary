@@ -20,10 +20,20 @@ class TransactionService {
 
   async updateTransactionStatus(transactionId, transactionStatus) {
     const authStore = useAuthStore();
-    return await axios.put(`${baseURL}/updateStatus`, {
-      transactionId: transactionId,
-      transactionStatus: transactionStatus,
-    });
+    try {
+      if (!authStore.isAdmin) {
+        throw new Error("Bạn không có quyền cập nhật.");
+      }
+
+      return await axios.put(`${baseURL}/updateStatus`, {
+        transactionId: transactionId,
+        transactionStatus: transactionStatus,
+      });
+    } catch (error) {
+      console.error("Lỗi khi cập nhật", error.message);
+      throw error; // Ném lỗi để xử lý ở nơi gọi hàm này
+    }
+    
   }
 }
 export default new TransactionService();

@@ -6,7 +6,9 @@ import ReaderService from '@/services/reader.service';
 import userService from '@/services/user.service';
 import { useSocketStore } from '../stores/socket.store';
 import Swal from 'sweetalert2';
+import { useAuthStore } from '@/stores/auth.store';
 
+const isAdmin = useAuthStore().isAdmin
 const bookService = new BookService;
 const readerService = new ReaderService;
 
@@ -81,7 +83,7 @@ const changeStatus = async (transactionStatus) => {
     Swal.fire('Thành công!', 'Trạng thái đã được cập nhật.', 'success');
   } catch (err) {
     console.error('Lỗi khi cập nhật trạng thái:', err);
-    Swal.fire('Lỗi!', 'Không thể cập nhật trạng thái.', 'error');
+    Swal.fire('Lỗi!', 'Bạn không có quyền cập nhật trạng thái.', 'error');
   }
 };
 
@@ -114,7 +116,7 @@ watch(transactionStatus, async (newStatus) => {
   </tr>
 
   <!-- Modal chi tiết giao dịch -->
-  <div class="modal fade" :id="`Modal${transaction._id}`" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" :id="`Modal${transaction._id}`" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" v-if="isAdmin">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
